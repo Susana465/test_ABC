@@ -2,9 +2,9 @@ import os
 import sys
 import numpy as np
 
-# create filename containing date to use for output.gdat file later
+# create a string name containing date to use for output files and folders
 from datetime import datetime
-current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 str_current_datetime = str(current_datetime)
 
 MCELL_PATH = os.environ.get('MCELL_PATH', '')
@@ -15,7 +15,7 @@ import mcell as m
 print("Import of MCell was sucessful")
 
 viz_output = m.VizOutput(
-    './viz_data/seed_00001/Scene',
+    str_current_datetime+'./viz_data/seed_00001/Scene',
     every_n_timesteps= 100
     )
 

@@ -106,7 +106,7 @@
      "bkwd_rate" : "",
      "data_model_version" : "DM_2018_01_11_1330",
      "description" : "",
-     "fwd_rate" : "1e+06",
+     "fwd_rate" : "1e+08",
      "name" : "A + B -> C",
      "products" : "C",
      "reactants" : "A + B",
@@ -776,7 +776,7 @@
    "data_model_version" : "DM_2017_11_18_0130",
    "export_all_ascii" : true,
    "interaction_radius" : "",
-   "iterations" : "1000",
+   "iterations" : "100",
    "microscopic_reversibility" : "OFF",
    "notifications" : 
    {
@@ -960,7 +960,7 @@
      "molecule_name" : "",
      "name" : "",
      "object_name" : "",
-     "output_file_override" : "out.gdat",
+     "output_file_override" : "2024-04-08_17-43-00_out.gdat",
      "plotting_enabled" : true,
      "reaction_name" : "",
      "region_name" : "",
@@ -976,7 +976,7 @@
      "molecule_name" : "",
      "name" : "",
      "object_name" : "",
-     "output_file_override" : "out.gdat",
+     "output_file_override" : "2024-04-08_17-43-00_out.gdat",
      "plotting_enabled" : true,
      "reaction_name" : "",
      "region_name" : "",
@@ -992,7 +992,7 @@
      "molecule_name" : "",
      "name" : "",
      "object_name" : "",
-     "output_file_override" : "out.gdat",
+     "output_file_override" : "2024-04-08_17-43-00_out.gdat",
      "plotting_enabled" : true,
      "reaction_name" : "",
      "region_name" : "",
@@ -1055,7 +1055,7 @@
   {
    "all_iterations" : false,
    "data_model_version" : "DM_2014_10_24_1638",
-   "end" : "1000",
+   "end" : "100",
    "export_all" : true,
    "start" : "0",
    "step" : "100"
