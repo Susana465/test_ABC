@@ -1,15 +1,15 @@
 begin model
 
 begin parameters
-  A_i 1000
-  B_i 1500
+  A_i 100
+  B_i 150
 
-  kon 1e8/NA_um3
+  kon 1e6/NA_um3
   koff 1e-2
 
-  ITERATIONS 100
+  ITERATIONS 1000
   
-  D_VOL 1e-4 # cm^2/s
+  D_VOL 1e-6 # cm^2/s
   D_SURF 1e-8 # cm^2/s
   MCELL_DIFFUSION_CONSTANT_3D_A D_VOL
   MCELL_DIFFUSION_CONSTANT_3D_B D_VOL
@@ -51,4 +51,4 @@ begin reaction rules
 end reaction rules
 
 end model
-simulate({method=>"ssa",t_end=>"ITERATIONS",n_steps=>10})
+simulate({method=>"ssa",t_end=>"ITERATIONS",n_steps=>100})

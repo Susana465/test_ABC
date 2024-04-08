@@ -2,6 +2,11 @@ import os
 import sys
 import numpy as np
 
+# create filename containing date to use for output.gdat file later
+from datetime import datetime
+current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+str_current_datetime = str(current_datetime)
+
 MCELL_PATH = os.environ.get('MCELL_PATH', '')
 sys.path.append(os.path.join(MCELL_PATH, 'lib'))
 
@@ -29,11 +34,11 @@ model.add_viz_output(viz_output)
 model.add_geometry_object(cp)
 
 model.load_bngl(
-    'hexamer_20220624.bngl', 
-    observables_path_or_file='out.gdat')
+    'test_ABC.bngl', 
+    observables_path_or_file = str_current_datetime+'_out.gdat')
 
 #open bngl file and load the parameters into a dictionary
-param_dict = m.bngl_utils.load_bngl_parameters('hexamer_20220624.bngl')
+param_dict = m.bngl_utils.load_bngl_parameters('test_ABC.bngl')
 ITERATIONS = param_dict['ITERATIONS']
 
 # Specifies periodicity of visualization output

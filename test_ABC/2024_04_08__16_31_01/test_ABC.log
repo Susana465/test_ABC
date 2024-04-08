@@ -1,0 +1,44 @@
+BioNetGen version 2.8.2
+Reading from file c:\PhD_2023\test_ABC\test_ABC\2024_04_08__16_31_01\test_ABC.bngl (level 0)
+Read 15 parameters.
+Read 3 molecule types.
+Read 2 compartments.
+Read 2 species.
+Read 3 observable(s).
+Read 1 reaction rule(s).
+ACTION: simulate( method=>"ssa" )
+ACTION: generate_network( test_ABC )
+Iteration   0:     2 species      0 rxns  0.00e+00 CPU s
+Iteration   1:     3 species      1 rxns  0.00e+00 CPU s
+Iteration   2:     3 species      2 rxns  0.00e+00 CPU s
+Cumulative CPU time for each rule
+Rule   1:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Total   :     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Wrote network in net format to test_ABC.net.
+Network simulation using ssa
+WARNING: writeFile(): Overwriting existing file test_ABC.net.
+Wrote network in net format to test_ABC.net.
+WARNING: t_end (ITERATIONS) is not greater than t_start (0). Simulation won't run.
+Running run_network on Susana-laptop
+full command: C:\Python39\lib\site-packages\bionetgen\bng-win\bin\run_network.exe -o test_ABC -p ssa -h 391377656 --cdat 1 --fdat 0 -g test_ABC.net test_ABC.net 0 100
+[simulation PID is: 21604]
+run_network 3.0
+Read 14 parameters from test_ABC.net
+Read 3 species from test_ABC.net
+Read 3 group(s) from test_ABC.net
+Read 1 function(s) from test_ABC.net
+Read 2 reaction(s) from test_ABC.net
+2 reaction(s) have nonzero rate
+rxn_rate_update_interval=1
+Average number of update rxns is 2.00
+Initialization took 0.01 CPU seconds
+Stochastic simulation using direct Gillespie algorithm
+TOTAL STEPS: 0
+Time course of concentrations written to file test_ABC.cdat.
+Time course of groups written to file test_ABC.gdat.
+Propagation took 0.00e+00 CPU seconds
+Program times:  0.01 CPU s 0.00 clock s
+Updating species concentrations from test_ABC.cdat
+CPU TIME: simulate 0.02 s.
+Finished processing file c:\PhD_2023\test_ABC\test_ABC\2024_04_08__16_31_01\test_ABC.bngl.
+CPU TIME: total 0.03 s.

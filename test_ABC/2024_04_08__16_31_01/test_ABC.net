@@ -1,0 +1,34 @@
+# Created by BioNetGen 2.8.2
+begin parameters
+    1 A_i                            100  # Constant
+    2 B_i                            150  # Constant
+    3 NA_um3                         6.022e8  # Constant
+    4 koff                           1e-2  # Constant
+    5 ITERATIONS                     1000  # Constant
+    6 D_VOL                          1e-6  # Constant
+    7 D_SURF                         1e-8  # Constant
+    8 MCELL_DIFFUSION_CONSTANT_3D_A  D_VOL  # ConstantExpression
+    9 MCELL_DIFFUSION_CONSTANT_3D_B  D_VOL  # ConstantExpression
+   10 MCELL_DIFFUSION_CONSTANT_3D_C  D_VOL  # ConstantExpression
+   11 VolCP                          0.50588  # Constant
+   12 VolPM                          0.0307  # Constant
+   13 VOL_RXN                        1  # Constant
+   14 MCELL_REDEFINE_NA_um3          VOL_RXN  # ConstantExpression
+end parameters
+begin functions
+    1 kon() 1e-1/NA_um3
+end functions
+begin species
+    1 @CP::A() A_i
+    2 @CP::B() B_i
+    3 @CP::C() 0
+end species
+begin reactions
+    1 1,2 3 1.9767534*kon #_R1 unit_conversion=1/VolCP
+    2 3 1,2 koff #_reverse__R1
+end reactions
+begin groups
+    1 A                    1
+    2 B                    2
+    3 C                    3
+end groups
