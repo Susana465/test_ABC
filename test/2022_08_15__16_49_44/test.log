@@ -1,0 +1,42 @@
+BioNetGen version 2.8.2
+Reading from file c:\Users\susan\OneDrive\Documentos\CaMKII_PhD\test_ABC\test\2022_08_15__16_49_44\test.bngl (level 0)
+Read 4 parameters.
+Read 3 molecule types.
+Read 2 species.
+Read 3 observable(s).
+Read 1 reaction rule(s).
+ACTION: simulate( method=>"ssa" )
+ACTION: generate_network( test )
+Iteration   0:     2 species      0 rxns  0.00e+00 CPU s
+Iteration   1:     3 species      1 rxns  0.00e+00 CPU s
+Iteration   2:     3 species      2 rxns  0.00e+00 CPU s
+Cumulative CPU time for each rule
+Rule   1:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Total   :     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Wrote network in net format to test.net.
+Network simulation using ssa
+WARNING: writeFile(): Overwriting existing file test.net.
+Wrote network in net format to test.net.
+Running run_network on Susana-laptop
+full command: C:\Python39\lib\site-packages\bionetgen\bng-win\bin\run_network.exe -o test -p ssa -h 174238164 --cdat 1 --fdat 0 -g test.net test.net 0.1 100
+[simulation PID is: 8736]
+run_network 3.0
+Read 4 parameters from test.net
+Read 3 species from test.net
+Read 3 group(s) from test.net
+Read 0 function(s) from test.net
+Read 2 reaction(s) from test.net
+2 reaction(s) have nonzero rate
+rxn_rate_update_interval=1
+Average number of update rxns is 2.00
+Initialization took 0.01 CPU seconds
+Stochastic simulation using direct Gillespie algorithm
+TOTAL STEPS: 100
+Time course of concentrations written to file test.cdat.
+Time course of groups written to file test.gdat.
+Propagation took 1.50e-02 CPU seconds
+Program times:  0.03 CPU s 0.00 clock s
+Updating species concentrations from test.cdat
+CPU TIME: simulate 0.02 s.
+Finished processing file c:\Users\susan\OneDrive\Documentos\CaMKII_PhD\test_ABC\test\2022_08_15__16_49_44\test.bngl.
+CPU TIME: total 0.02 s.
