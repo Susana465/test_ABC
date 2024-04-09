@@ -3,27 +3,24 @@ import sys
 import numpy as np
 from datetime import datetime
 
-def save_run_iteration(folder_name, timestamp, bngl_filename):
+def save_run_iteration(folder_name, timestamp):
     # Create the folder if it doesn't exist
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
     
     # Generate the python filename
     python_filename = f"{folder_name}/dodecamer_run_{timestamp}.py"
-    saved_bngl_filename = f"{folder_name}/{bngl_filename}"
-
+    bngl_filename = f"{folder_name}/test_ABC.bngl"
+    
     # Save the content of the current script to the generated filename
     with open(__file__, 'r') as f:
         content = f.read()
         with open(python_filename, 'w') as new_f:
             new_f.write(content)
 
-    # Copy the specified bngl file to the generated timestamped filename
-    with open(bngl_filename, 'r') as src_file, open(saved_bngl_filename, 'w') as dest_file:
+    # Copy the bngl file being used to the generated timestamped filename
+    with open("test_ABC.bngl", 'r') as src_file, open(bngl_filename, 'w') as dest_file:
         dest_file.write(src_file.read())
-
-# Specify the BNGL filename here
-bngl_filename = "test_ABC.bngl"
 
 # create a string name containing date to use for output files and folders
 current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -60,11 +57,11 @@ model.add_viz_output(viz_output)
 model.add_geometry_object(cp)
 
 model.load_bngl(
-    bngl_filename, 
+    'test_ABC.bngl', 
     observables_path_or_file = os.path.join(run_folder, f"{current_datetime}_out.gdat"))
 
 #open bngl file and load the parameters into a dictionary
-param_dict = m.bngl_utils.load_bngl_parameters(bngl_filename)
+param_dict = m.bngl_utils.load_bngl_parameters('test_ABC.bngl')
 ITERATIONS = param_dict['ITERATIONS']
 
 # Specifies periodicity of visualization output
@@ -93,4 +90,4 @@ model.run_iterations(ITERATIONS)
 
 model.end_simulation()
 
-save_run_iteration(run_folder, current_datetime, bngl_filename)
+save_run_iteration(run_folder, current_datetime)
