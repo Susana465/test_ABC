@@ -85,4 +85,5 @@ model.run_iterations(ITERATIONS)
 
 model.end_simulation()
 
+# Save this iteration with a timestamp
 save_run_iteration(run_folder, current_datetime)
