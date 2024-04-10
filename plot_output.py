@@ -2,6 +2,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Insert file you want to plot:
 target_file = "2024-04-10_16-29-35_out.gdat"
 
 # Function to search for the target file within directories containing "run_"
@@ -14,7 +15,7 @@ def find_target_file(root_dir, target_filename):
                     return target_filepath
     return None
 
-# Search for the target file
+# Search for the target file within the current directory "."
 target_filepath = find_target_file(".", target_file)
 
 if target_filepath is not None:
