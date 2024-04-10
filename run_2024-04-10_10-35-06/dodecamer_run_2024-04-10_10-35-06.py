@@ -2,8 +2,6 @@ import os
 import sys
 import numpy as np
 from datetime import datetime
-import filecmp
-import shutil
 
 def save_run_iteration(folder_name, timestamp, bngl_filename):
     # Create the folder if it doesn't exist
@@ -15,21 +13,14 @@ def save_run_iteration(folder_name, timestamp, bngl_filename):
     saved_bngl_filename = f"{folder_name}/{bngl_filename}"
 
     # Save the content of the current script to the generated filename
-    if not os.path.exists(python_filename):
-        with open(__file__, 'r') as f:
-            content = f.read()
-            with open(python_filename, 'w') as new_f:
-                new_f.write(content)
+    with open(__file__, 'r') as f:
+        content = f.read()
+        with open(python_filename, 'w') as new_f:
+            new_f.write(content)
 
-    # Copy the specified bngl file to the generated timestamped filename if it's not already there
-    if not os.path.exists(saved_bngl_filename):
-        shutil.copy(bngl_filename, saved_bngl_filename)
-    else:
-        # If the file already exists, check if it's the same as the original
-        if not filecmp.cmp(bngl_filename, saved_bngl_filename):
-            # If it's different, save the new version with a different name
-            new_bngl_filename = f"{folder_name}/{os.path.basename(bngl_filename).split('.')[0]}_modified.bngl"
-            shutil.copy(bngl_filename, new_bngl_filename)
+    # Copy the specified bngl file to the generated timestamped filename
+    with open(bngl_filename, 'r') as src_file, open(saved_bngl_filename, 'w') as dest_file:
+        dest_file.write(src_file.read())
 
 # Specify the BNGL filename here
 bngl_filename = "test_ABC.bngl"
