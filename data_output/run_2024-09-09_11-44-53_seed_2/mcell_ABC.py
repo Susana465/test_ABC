@@ -56,11 +56,11 @@ model.add_viz_output(viz_output)
 model.add_geometry_object(cp)
 
 model.load_bngl(
-    os.path.join(run_folder,'test_ABC.bngl'), 
+    'test_ABC.bngl', 
     observables_path_or_file = os.path.join(run_folder, f"{timestamp}_out.gdat"))
 
 #open bngl file and load the parameters into a dictionary
-param_dict = m.bngl_utils.load_bngl_parameters(os.path.join(run_folder,'test_ABC.bngl'))
+param_dict = m.bngl_utils.load_bngl_parameters('test_ABC.bngl')
 ITERATIONS = param_dict['ITERATIONS']
 
 # Convert dictionary to DataFrame
