@@ -42,7 +42,7 @@ run_folder, timestamp = prepare_out_folder("data_output", model.config.seed, ["t
 
 viz_output = m.VizOutput(
     os.path.join(run_folder, f"viz_data/Scene_"),
-    every_n_timesteps= 100
+    every_n_timesteps= 1000
     )
 
 model.add_viz_output(viz_output)
@@ -51,7 +51,7 @@ model.load_bngl(
     os.path.join(run_folder,'test_ABC.bngl'), 
     observables_path_or_file = os.path.join(run_folder, f"{timestamp}_out.gdat"))
 
-#open bngl file and load the parameters into a dictionary
+# open bngl file and load the parameters into a dictionary
 param_dict = m.bngl_utils.load_bngl_parameters(os.path.join(run_folder,'test_ABC.bngl'))
 ITERATIONS = param_dict['ITERATIONS']
 

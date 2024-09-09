@@ -33,7 +33,7 @@ def set_up_model():
 
     # Check to see if total iterations is defined as a global parameter
     if 'ITERATIONS' not in globals():
-        ITERATIONS = 100
+        ITERATIONS = 10000
 
     # Total_Iterations if not defined explicitly default to 1e-6
     model.config.total_iterations = ITERATIONS

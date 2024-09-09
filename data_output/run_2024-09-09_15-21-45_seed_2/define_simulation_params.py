@@ -33,7 +33,7 @@ def set_up_model():
 
     # Check to see if total iterations is defined as a global parameter
     if 'ITERATIONS' not in globals():
-        ITERATIONS = 100
+        ITERATIONS = 10000
 
     # Total_Iterations if not defined explicitly default to 1e-6
     model.config.total_iterations = ITERATIONS
@@ -43,3 +43,9 @@ def set_up_model():
     model.config.subpartition_dimension = 0.05
 
     return model
+
+# Prevent unintended execution when imported
+if __name__ == "__main__":
+    # Test code/default behavior when script is run directly
+    model = set_up_model()
+    print("Model set up successfully")
