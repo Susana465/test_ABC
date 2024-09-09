@@ -7,7 +7,7 @@ begin parameters
   kon 1e8/NA_um3
   koff 1e-2
 
-  ITERATIONS 100
+  ITERATIONS 600
   
   D_VOL 1e-4 # cm^2/s
   D_SURF 1e-8 # cm^2/s

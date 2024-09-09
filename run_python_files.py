@@ -6,7 +6,7 @@ def run_script(script_path):
 
 def main():
     # Specify the path to your Python script
-    script_path = "run_test.py"
+    script_path = "mcell_ABC.py"
     
     # Run the script
     run_script(script_path)
