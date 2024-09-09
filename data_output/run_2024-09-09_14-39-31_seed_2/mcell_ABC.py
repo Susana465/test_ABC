@@ -1,5 +1,4 @@
 # This is the script where I prepare folders and call mcell and bngl params that may vary.
-# Parameters are to be changed in the [define_simulation_params.py] file, not here.
 import os
 import sys
 import numpy as np
@@ -17,7 +16,7 @@ import mcell as m
 
 print("Import of MCell was sucessful")
 
-def prepare_out_folder(folder_name, seed, files_to_copy=["file.bngl", "file.py"]):
+def prepare_out_folder(folder_name, seed, files_to_copy=["test_ABC.bngl", "mcell_ABC.py"]):
     
     # Generate the current timestamp
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -38,7 +37,7 @@ def prepare_out_folder(folder_name, seed, files_to_copy=["file.bngl", "file.py"]
 model = set_up_model()
 
 # Call the function and capture the path to the run folder and timestamp
-run_folder, timestamp = prepare_out_folder("data_output", model.config.seed, ["test_ABC.bngl", "define_simulation_params.py"])
+run_folder, timestamp = prepare_out_folder("data_output", model.config.seed)
 
 viz_output = m.VizOutput(
     os.path.join(run_folder, f"viz_data/Scene_"),
@@ -65,7 +64,7 @@ df.to_csv(csv_filename, index=False)
 
 model.initialize()
 
-model.export_data_model()
+# model.export_data_model()
 
 model.run_iterations(ITERATIONS)
 
