@@ -8,7 +8,7 @@ import pandas as pd
 import shutil  # for easier file copying
 
 # Call the function "set_up_model" that runs mcell model with params specs from define_simulation_params.py
-from define_simulation_params import set_up_model
+from mcell_params import set_up_model
 
 MCELL_PATH = os.environ.get('MCELL_PATH', '')
 sys.path.append(os.path.join(MCELL_PATH, 'lib'))
