@@ -37,32 +37,51 @@ def prepare_out_folder(folder_name, seed, files_to_copy=["file.bngl", "file.py"]
 
 model = set_up_model()
 
+# Define what files I am using here:
+bngl_file = "test_ABC.bngl"
+mcell_param_file = "define_simulation_params.py"
+
 # Call the function and capture the path to the run folder and timestamp
-run_folder, timestamp = prepare_out_folder("data_output", model.config.seed, ["test_ABC.bngl", "define_simulation_params.py"])
+run_folder, timestamp = prepare_out_folder("data_output", model.config.seed, [bngl_file, mcell_param_file])
 
 # Save viz_data under timestamped folder
 viz_output = m.VizOutput(
     os.path.join(run_folder, f"viz_data/Scene_"),
     every_n_timesteps= 100
     )
-
 model.add_viz_output(viz_output)
 
+# Load copied bngl file and save it
 model.load_bngl(
-    os.path.join(run_folder,'test_ABC.bngl'), 
+    os.path.join(run_folder, bngl_file), 
     observables_path_or_file = os.path.join(run_folder, f"{timestamp}_out.gdat"))
 
-# open bngl file and load the parameters into a dictionary
-param_dict = m.bngl_utils.load_bngl_parameters(os.path.join(run_folder,'test_ABC.bngl'))
-ITERATIONS = param_dict['ITERATIONS']
+def process_parameters(file, folder, timestamp):
+    """
+    Load parameters from a (.bngl) file, convert them to a DataFrame, and save to a CSV file.
 
-# Convert dictionary to DataFrame
-df = pd.DataFrame.from_dict(param_dict, orient='index', columns=['Value'])
-# Add a column for parameter names if needed
-df['Parameter'] = df.index
-# Save DataFrame to CSV within the timestamped folder to know what parameters were used for the output data
-csv_filename = f"{run_folder}/{timestamp}_parameters.csv"
-df.to_csv(csv_filename, index=False)
+    Parameters:
+    - file: The name of the .bngl file containing parameters.
+    - folder: The directory where the .bngl file is located and where output should be saved.
+    - timestamp: A string representing the current timestamp, used for naming the output CSV file.
+    """
+    # Load parameters from the .bngl file
+    param_dict = m.bngl_utils.load_bngl_parameters(os.path.join(folder, file))
+    ITERATIONS = param_dict.get('ITERATIONS', None)  # Handle cases where 'ITERATIONS' might not be present
+
+    # Convert dictionary to DataFrame
+    df = pd.DataFrame.from_dict(param_dict, orient='index', columns=['Value'])
+    
+    # Add a column for parameter names
+    df['Parameter'] = df.index
+
+    # Define the CSV filename and save the DataFrame to CSV
+    csv_filename = os.path.join(folder, f"{timestamp}_parameters.csv")
+    df.to_csv(csv_filename, index=False)
+
+    return ITERATIONS, df  # return the ITERATIONS and DataFrame if needed
+
+ITERATIONS, df = process_parameters(bngl_file, run_folder, timestamp)
 
 # Check to see if total iterations is defined as a global parameter
 if 'ITERATIONS' not in globals():
@@ -71,6 +90,7 @@ if 'ITERATIONS' not in globals():
 # Total_Iterations if not defined explicitly default to 1e-6
 model.config.total_iterations = ITERATIONS
 
+# Initialize, export, and run the model
 model.initialize()
 
 model.export_data_model()
