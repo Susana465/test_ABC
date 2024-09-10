@@ -32,7 +32,12 @@ def set_up_model():
     #Do not use bng units:
     model.config.use_bng_units = False
 
-    # Variable parameters
+    # Check to see if total iterations is defined as a global parameter
+    if 'ITERATIONS' not in globals():
+        ITERATIONS = 1000
+
+    # Total_Iterations if not defined explicitly default to 1e-6
+    model.config.total_iterations = ITERATIONS
     model.config.time_step = 1e-4 # time steps taken by individual molecules. but this time step is still used by all output statements.
     model.config.seed = seed
     model.config.partition_dimension = 1.5 # 1.5 was before

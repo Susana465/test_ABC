@@ -40,9 +40,10 @@ model = set_up_model()
 # Call the function and capture the path to the run folder and timestamp
 run_folder, timestamp = prepare_out_folder("data_output", model.config.seed, ["test_ABC.bngl", "define_simulation_params.py"])
 
+# Save viz_data under timestamped folder
 viz_output = m.VizOutput(
     os.path.join(run_folder, f"viz_data/Scene_"),
-    every_n_timesteps= 1000
+    every_n_timesteps= 100
     )
 
 model.add_viz_output(viz_output)
@@ -62,6 +63,13 @@ df['Parameter'] = df.index
 # Save DataFrame to CSV within the timestamped folder to know what parameters were used for the output data
 csv_filename = f"{run_folder}/{timestamp}_parameters.csv"
 df.to_csv(csv_filename, index=False)
+
+# Check to see if total iterations is defined as a global parameter
+if 'ITERATIONS' not in globals():
+        ITERATIONS = 100
+
+# Total_Iterations if not defined explicitly default to 1e-6
+model.config.total_iterations = ITERATIONS
 
 model.initialize()
 
