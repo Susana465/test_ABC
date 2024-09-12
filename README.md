@@ -8,7 +8,7 @@ The important files to run the simulation are:
 
 ## Parameter files:
 - [`mcell_params.py`](mcell_params.py): where variable mcell parameters are stored, and can be changed.
-- [`test_ABC.bngl`](test_ABC.bngl)
+- [`test_ABC.bngl`](test_ABC.bngl): where model is created and described using BNGL. 
 
 ## Run-the-model files:
 - [`prepare_run_files.py`](prepare_run_files.py): script that prepares files to be copied, ran, and saved in a timestamped folder.
