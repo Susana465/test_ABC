@@ -39,7 +39,7 @@ model = set_up_model()
 
 # Define what files I am using here:
 bngl_file = "test_ABC.bngl"
-mcell_param_file = "define_simulation_params.py"
+mcell_param_file = "mcell_params.py"
 
 # Call the function and capture the path to the run folder and timestamp
 run_folder, timestamp = prepare_out_folder("data_output", model.config.seed, [bngl_file, mcell_param_file])
