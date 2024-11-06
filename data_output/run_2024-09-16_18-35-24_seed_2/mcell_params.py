@@ -33,7 +33,7 @@ def set_up_model():
     model.config.use_bng_units = False
 
     # Variable parameters
-    model.config.time_step = 1e-2 # time steps taken by individual molecules. but this time step is still used by all output statements.
+    model.config.time_step = 1e-3 # time steps taken by individual molecules. but this time step is still used by all output statements.
     model.config.seed = seed
     model.config.partition_dimension = 1.5 # 1.5 was before
     model.config.subpartition_dimension = 0.05

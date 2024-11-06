@@ -1,13 +1,13 @@
 begin model
 
 begin parameters
-  A_i 100
-  B_i 150
+  A_i 1000
+  B_i 1500
 
   kon 1e8/NA_um3
   koff 1e-2
 
-  ITERATIONS 1e2
+  ITERATIONS 1e3
   
   D_VOL 1e-4 # cm^2/s
   D_SURF 1e-8 # cm^2/s
