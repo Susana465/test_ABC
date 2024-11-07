@@ -1,4 +1,8 @@
+import os
 import pandas as pd
+from prepare_run_files import prepare_out_folder, process_parameters
+from mcell_params import set_up_model
+import matplotlib.pyplot as plt
 
 # read gdat file output and put it into a dataframe
 def read_gdat(filename):
@@ -26,6 +30,41 @@ def extract_statistic(data):
 print("Final molecule count for column C:")
 print(stat)
 
+# Create an empty dataframe to store stats
+params_stats = pd.DataFrame(columns=['kon', 'statistic'])
+
+def run_model(kon, bngl_file, run_folder, timestamp):
+    model = set_up_model(kon_value=kon) 
+
+for kon in [10, 100, 1000, 10000]:
+    # Prepare folder and get timestamp
+    run_folder, timestamp = prepare_out_folder("data_output", seed=42)
+    
+    # Run the model with the current kon (this step doesn't repeat initialization)
+    run_model(kon=kon, bngl_file="test_ABC.bngl", run_folder=run_folder, timestamp=timestamp)
+    
+    # Read output data and store statistics
+    data_files = glob.glob(os.path.join(run_folder, "*_out.gdat"))
+    for data_file in data_files:
+        data = read_gdat(data_file)
+        statistic = extract_statistic(data)
+
+        # Store the parameters and statistic
+        result = pd.DataFrame({
+            'kon': [kon],
+            'statistic': [statistic]
+        })
+        params_stats = pd.concat([params_stats, result], ignore_index=True)
+
+# Plot the results
+plt.figure(figsize=(10, 6))
+plt.plot(params_stats['kon'], params_stats['statistic'], marker='o', linestyle='-')
+plt.xlabel('kon')
+plt.ylabel('Statistic')
+plt.title('kon vs Statistic')
+plt.grid(True)
+plt.show()
+
 #i want mcell to run with different kon that i input here, 
 # for kon in [10, 100, 1000, 10000]:
 #     #create function run_model, with all specified values in the model, except for this one here that i am interested in
@@ -40,3 +79,16 @@ print(stat)
 
 #give me a .gdat file output
 # access each gdat stat for each kon, create a dataframe which stores the stats I am interested in recording
+
+# General Workflow:
+# Loop Over kon Values:
+# You'll need to run the model with different kon values. The run_model() function is responsible for running the simulation with the specified kon value.
+
+# Reading Output Files:
+# After each model run, you'll need to read the resulting .gdat file, extract the statistic (e.g., the final concentration [C]), and store this information in a DataFrame.
+
+# Create a DataFrame:
+# You’ll store the statistics (kon and the extracted concentration) for each model run in a DataFrame.
+
+# Plot the Results:
+# After collecting all the statistics, you'll plot how the concentration changes with respect to kon.
