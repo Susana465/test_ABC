@@ -33,8 +33,7 @@ print(stat)
 # Create an empty dataframe to store stats
 params_stats = pd.DataFrame(columns=['kon', 'statistic'])
 
-def run_model(kon, bngl_file, run_folder, timestamp):
-    model = set_up_model(kon_value=kon) 
+#run model with different kon
 
 for kon in [10, 100, 1000, 10000]:
     # Prepare folder and get timestamp
@@ -64,6 +63,8 @@ plt.ylabel('Statistic')
 plt.title('kon vs Statistic')
 plt.grid(True)
 plt.show()
+
+# https://mcell.org/tutorials/scripting/customization.html 
 
 #i want mcell to run with different kon that i input here, 
 # for kon in [10, 100, 1000, 10000]:
