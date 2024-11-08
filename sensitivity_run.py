@@ -1,3 +1,25 @@
+
+# General Workflow:
+# Loop Over kon Values:
+# need to run the model with different kon values. 
+# Make a run_model() function responsible for running the simulation with the specified kon value.
+
+# Reading Output Files:
+# After each model run, need to read the resulting .gdat file, extract the statistic 
+# (e.g., the final concentration [C]), and store this information in a DataFrame.
+
+# Create a DataFrame:
+# Store the statistics (kon and the extracted concentration) for each model run in a DataFrame.
+
+# Plot the Results:
+# After collecting all the statistics, plot how the concentration changes with respect to kon.
+
+
+# open, whilst open, read bngl file
+# find line where kon is defined
+#change kon value
+# save it as a specific new file copy with kon
+
 import os
 import pandas as pd
 from prepare_run_files import prepare_out_folder, process_parameters

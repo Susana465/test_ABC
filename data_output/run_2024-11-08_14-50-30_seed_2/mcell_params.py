@@ -7,7 +7,6 @@ sys.path.append(os.path.join(MCELL_PATH, 'lib'))
 
 import mcell as m
 
-
 def set_up_model():
     
     model = m.Model()
