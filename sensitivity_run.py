@@ -22,9 +22,9 @@
 
 import os
 import pandas as pd
-from prepare_run_files import prepare_out_folder, process_parameters
 from mcell_params import set_up_model
 import matplotlib.pyplot as plt
+from new_test import run_model
 
 # read gdat file output and put it into a dataframe
 def read_gdat(filename):
@@ -58,12 +58,8 @@ params_stats = pd.DataFrame(columns=['kon', 'statistic'])
 #run model with different kon
 
 for kon in [10, 100, 1000, 10000]:
-    # Prepare folder and get timestamp
-    run_folder, timestamp = prepare_out_folder("data_output", seed=42)
-    
     # Run the model with the current kon (this step doesn't repeat initialization)
-    run_model(kon=kon, bngl_file="test_ABC.bngl", run_folder=run_folder, timestamp=timestamp)
-    
+    run_folder, timestamp, df = run_model(parameter_overrides={'kon': kon}, bngl_file="test_ABC.bngl")
     # Read output data and store statistics
     data_files = glob.glob(os.path.join(run_folder, "*_out.gdat"))
     for data_file in data_files:
