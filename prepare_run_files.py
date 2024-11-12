@@ -1,21 +1,13 @@
-# This is the script where I prepare folders and call mcell and bngl params that may vary.
-# Parameters are to be changed in the [define_simulation_params.py] file, not here.
+# This is the script where I prepare folders to save model runs
 import os
 import sys
-import numpy as np
 from datetime import datetime
 import pandas as pd
 import shutil  # for easier file copying
-
-# Call the function "set_up_model" that runs mcell model with params specs from mcell_params.py
-from mcell_params import set_up_model
+import mcell as m
 
 MCELL_PATH = os.environ.get('MCELL_PATH', '')
 sys.path.append(os.path.join(MCELL_PATH, 'lib'))
-
-import mcell as m
-
-print("Import of MCell was sucessful")
 
 def prepare_out_folder(folder_name, seed, files_to_copy=["file.bngl", "file.py"]):
     
@@ -34,27 +26,6 @@ def prepare_out_folder(folder_name, seed, files_to_copy=["file.bngl", "file.py"]
     print(f"Files will be saved in {folder_name}.")
 
     return folder_name, timestamp
-
-model = set_up_model()
-
-# Define what files I am using here:
-bngl_file = "test_ABC.bngl"
-mcell_param_file = "mcell_params.py"
-
-# Call the function and capture the path to the run folder and timestamp
-run_folder, timestamp = prepare_out_folder("data_output", model.config.seed, [bngl_file, mcell_param_file])
-
-# Save viz_data under timestamped folder
-viz_output = m.VizOutput(
-    os.path.join(run_folder, f"viz_data/Scene_"),
-    every_n_timesteps= 100
-    )
-model.add_viz_output(viz_output)
-
-# Load copied bngl file and save it
-model.load_bngl(
-    os.path.join(run_folder, bngl_file), 
-    observables_path_or_file = os.path.join(run_folder, f"{timestamp}_out.gdat"))
 
 def process_parameters(file, folder, timestamp):
     """
@@ -80,21 +51,3 @@ def process_parameters(file, folder, timestamp):
     df.to_csv(csv_filename, index=False)
 
     return ITERATIONS, df  # return the ITERATIONS and DataFrame if needed
-
-ITERATIONS, df = process_parameters(bngl_file, run_folder, timestamp)
-
-# Check to see if total iterations is defined as a global parameter
-if 'ITERATIONS' not in globals():
-        ITERATIONS = 100
-
-# Total_Iterations if not defined explicitly default to 1e-6
-model.config.total_iterations = ITERATIONS
-
-# Initialize, export, and run the model
-model.initialize()
-
-model.export_data_model()
-
-model.run_iterations(ITERATIONS)
-
-model.end_simulation()

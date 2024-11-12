@@ -22,7 +22,6 @@
 
 import os
 import pandas as pd
-from mcell_params import set_up_model
 import matplotlib.pyplot as plt
 from new_test import run_model
 

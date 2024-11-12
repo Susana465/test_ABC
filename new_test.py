@@ -1,7 +1,6 @@
 import os
 import sys
 from prepare_run_files import prepare_out_folder, process_parameters
-
 # Call the function "set_up_model" that runs mcell model with params specs from mcell_params.py
 from mcell_params import set_up_model
 import mcell as m
@@ -10,7 +9,7 @@ print("Import of MCell was successful")
 MCELL_PATH = os.environ.get('MCELL_PATH', '')
 sys.path.append(os.path.join(MCELL_PATH, 'lib'))
 
-def run_model(parameter_overrides={'kon': 1e8}, bngl_file="test_ABC.bngl"):
+def run_model(parameter_overrides={'kon': 1e6}, bngl_file="test_ABC.bngl"):
     # Define the parameter overrides and put it into a dict
     # Create a string that summarizes the parameter overrides for folder naming
     override_str = '_'.join([f"{key}_{value}" for key, value in parameter_overrides.items()])
