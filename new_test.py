@@ -13,7 +13,7 @@ sys.path.append(os.path.join(MCELL_PATH, 'lib'))
 
 import mcell as m
 
-# Define the parameter overrides
+# Define the parameter overrides and put it into a dict
 parameter_overrides = {
     'kon': 1e8  # Override kon to 2e8 / NA_um3
 }
