@@ -1,6 +1,5 @@
 # This is the script where I prepare folders to save model runs
 import os
-import sys
 from datetime import datetime
 import shutil  # for easier file copying
 
@@ -18,7 +17,7 @@ def prepare_out_folder(folder_name, seed, files_to_copy=["file.bngl", "file.py"]
         dest_file = os.path.join(folder_name, file_name)  # Destination path with original name
         shutil.copy(file_name, dest_file)  # Copy the file with original name
     
-    print(f"Files will be saved in {folder_name}.")
+    print(f"New run, files will be saved in {folder_name}.")
 
     return folder_name, timestamp
 

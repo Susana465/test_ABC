@@ -41,7 +41,7 @@ def set_up_model():
 
     return model
 
-def process_parameters(file, folder, timestamp, parameter_overrides=None):
+def process_parameters(file, folder, timestamp, param_override):
     """
     Load parameters from a (.bngl) file, convert them to a DataFrame, and save to a CSV file.
 
@@ -50,11 +50,8 @@ def process_parameters(file, folder, timestamp, parameter_overrides=None):
     - folder: The directory where the .bngl file is located and where output should be saved.
     - timestamp: A string representing the current timestamp, used for naming the output CSV file.
     """
-    # Load parameters from the .bngl file, override parameters of hey are there
-    param_dict = m.bngl_utils.load_bngl_parameters(
-        os.path.join(folder, file),
-        parameter_overrides)
-    
+    # Load parameters from the .bngl file
+    param_dict = m.bngl_utils.load_bngl_parameters(os.path.join(folder, file))
     ITERATIONS = param_dict.get('ITERATIONS', None)  # Handle cases where 'ITERATIONS' might not be present
 
     # Convert dictionary to DataFrame

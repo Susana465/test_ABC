@@ -1,112 +1,60 @@
-
-# General Workflow:
-# Loop Over kon Values:
-# need to run the model with different kon values. 
-# Make a run_model() function responsible for running the simulation with the specified kon value.
-
-# Reading Output Files:
-# After each model run, need to read the resulting .gdat file, extract the statistic 
-# (e.g., the final concentration [C]), and store this information in a DataFrame.
-
-# Create a DataFrame:
-# Store the statistics (kon and the extracted concentration) for each model run in a DataFrame.
-
-# Plot the Results:
-# After collecting all the statistics, plot how the concentration changes with respect to kon.
-
-
-# open, whilst open, read bngl file
-# find line where kon is defined
-#change kon value
-# save it as a specific new file copy with kon
-
 import os
-import pandas as pd
-import matplotlib.pyplot as plt
-from new_test import run_model
+from prepare_run_files import prepare_out_folder
+# Call the function "set_up_model" that runs mcell model with params specs from mcell_params.py
+from mcell_params import set_up_model, process_parameters
 
-# read gdat file output and put it into a dataframe
-def read_gdat(filename):
-    data = pd.read_table(filename, delim_whitespace=True)
-    data.columns = data.columns[1:].append(pd.Index(["remove"]))
-    return data.drop("remove", axis=1)
+def run_model(parameter_overrides, bngl_file="test_ABC.bngl"):
+    # Define the parameter overrides and put it into a dict
+    # Create a string that summarizes the parameter overrides for folder naming
+    #override_str = '_'.join([f"{key}_{value}" for key, value in parameter_overrides.items()])
 
-# Call the function with the path to .gdat file
-filename = 'data_output/run_2024-11-06_10-45-17_seed_2/2024-11-06_10-45-17_out.gdat'  # Replace with your actual file path
-data = read_gdat(filename)
+    # Set up the model described in mcell_params.py under the function set_up_model()
+    model = set_up_model()
 
-# Now `data` holds the DataFrame returned by read_gdat
-print(data)  # Print or use `data` as needed
+    # Define your MCell parameter files
+    mcell_param_file = "mcell_params.py"
 
-# Out of which I want to extract the stat I am interested in, such as:
-# Final molecule count 'C'
-# iloc[-1] is used to select the last row in the DataFrame 
-stat = data['C'].iloc[-1]
+    # Call the function and capture the path to the run folder and timestamp
+    run_folder, timestamp = prepare_out_folder("data_output", model.config.seed, files_to_copy=[bngl_file, mcell_param_file])
 
-def extract_statistic(data):
-    # Dummy function for extracting final concentration [C]
-    stat = data['C'].iloc[-1]
-    return stat
+    # This wont run now, will run if set to True. Save viz_data under timestamped folder
+    if False:
+        viz_output = m.VizOutput(
+            os.path.join(run_folder, f"viz_data/Scene_"),
+            every_n_timesteps=100
+        )
+        model.add_viz_output(viz_output)
 
-print("Final molecule count for column C:")
-print(stat)
+    # Load the BNGL file and apply the parameter overrides
+    model.load_bngl(
+        os.path.join(run_folder, bngl_file), 
+        observables_path_or_file=os.path.join(run_folder, f"{timestamp}_out.gdat"),
+        parameter_overrides=parameter_overrides
+    )
 
-# Create an empty dataframe to store stats
-params_stats = pd.DataFrame(columns=['kon', 'statistic'])
+    # Process the parameters and save them to CSV
+    ITERATIONS, df = process_parameters(bngl_file, run_folder, timestamp, parameter_overrides)
 
-#run model with different kon
+    # Check to see if total iterations is defined as a global parameter
+    if ITERATIONS is None:
+        ITERATIONS = 100
 
-for kon in [10, 100, 1000, 10000]:
-    # Run the model with the current kon (this step doesn't repeat initialization)
-    run_folder, timestamp, df = run_model(parameter_overrides={'kon': kon}, bngl_file="test_ABC.bngl")
-    # Read output data and store statistics
-    data_files = glob.glob(os.path.join(run_folder, "*_out.gdat"))
-    for data_file in data_files:
-        data = read_gdat(data_file)
-        statistic = extract_statistic(data)
+    # Set the total iterations (use the ITERATIONS from the BNGL or the overridden one)
+    model.config.total_iterations = ITERATIONS
 
-        # Store the parameters and statistic
-        result = pd.DataFrame({
-            'kon': [kon],
-            'statistic': [statistic]
-        })
-        params_stats = pd.concat([params_stats, result], ignore_index=True)
+    # Initialize, export, and run the model
+    model.initialize()
+    model.run_iterations(ITERATIONS)
+    model.end_simulation()
 
-# Plot the results
-plt.figure(figsize=(10, 6))
-plt.plot(params_stats['kon'], params_stats['statistic'], marker='o', linestyle='-')
-plt.xlabel('kon')
-plt.ylabel('Statistic')
-plt.title('kon vs Statistic')
-plt.grid(True)
-plt.show()
+    return run_folder, timestamp, df
 
-# https://mcell.org/tutorials/scripting/customization.html 
+# different 'kon' values to run through
+kon_values = [1e5, 5e5, 1e6, 5e6, 1e7] 
 
-#i want mcell to run with different kon that i input here, 
-# for kon in [10, 100, 1000, 10000]:
-#     #create function run_model, with all specified values in the model, except for this one here that i am interested in
-#     run_model(kon = kon)
-
-# # read all the param files and data file, extract final [C] (use os.glob)
-# for files in all_files: #(use os.glob)
-#     parameters = pd.read_csv(parameter_file)
-#     data = read_gdat(data_file)
-#     statistic = extract_statistic(data)
-#     params_stats = pd.concat(params_stats,parameters,statistic)
-
-#give me a .gdat file output
-# access each gdat stat for each kon, create a dataframe which stores the stats I am interested in recording
-
-# General Workflow:
-# Loop Over kon Values:
-# You'll need to run the model with different kon values. The run_model() function is responsible for running the simulation with the specified kon value.
-
-# Reading Output Files:
-# After each model run, you'll need to read the resulting .gdat file, extract the statistic (e.g., the final concentration [C]), and store this information in a DataFrame.
-
-# Create a DataFrame:
-# You’ll store the statistics (kon and the extracted concentration) for each model run in a DataFrame.
-
-# Plot the Results:
-# After collecting all the statistics, you'll plot how the concentration changes with respect to kon.
+# Iterate over the kon values and run the model
+for kon in kon_values:
+    print(f"Starting run for kon = {kon}") 
+    parameter_overrides = {'kon': kon}
+    run_model(parameter_overrides)
+    print(f"Run completed for kon = {kon}")
