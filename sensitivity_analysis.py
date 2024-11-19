@@ -53,7 +53,7 @@ for run_folder in [os.path.join('data_output',dir) for dir in os.listdir('data_o
     params = pd.read_csv(param_files[0])
     statistic = extract_statistic(data)
     print(params)
-    print(statistic) 
+    #print(statistic) 
 
 #     #for data_file in data_files:
 #         # data = read_gdat(data_file)
