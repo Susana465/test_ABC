@@ -1,0 +1,59 @@
+begin model
+begin parameters
+# Define initial number of molecules released
+  A_i 150
+  B_i 150
+  C_i 100
+# Define reaction rates
+  kon 1e-2
+  koff 1e-3
+  k_P 1e1
+end parameters
+
+begin molecule types
+# Here we define the molecules and the possible states and binding sites they can have
+# Molecule A has a binding site (a), and a phosphorylation site which can be unphosphorylated (~0) or phosphorylated (~P):
+    A(a,T286~0~P)
+# Molecule B has a binding site (b):
+    B(b)
+# Molecule C has no binding sites:
+    C()
+end molecule types
+
+begin species
+# Molecule A starts with binding site a free, and with phosphorylation site unphosphorylated
+    A(a,T286~0) A_i 
+# Molecule B starts with binding site b free
+    B(b) B_i
+# Molecule C has no binding sites so it starts as it is
+    C() C_i
+end species
+
+begin reaction rules
+# A_free and B_free can resversbly bind to give AB_complex
+# Don't need to specify, if I'm not interested, status of phosphorylation for molecule A. Note how it is not written in the rule definition (don't care, don't write):
+    A(a) + B(b) <-> A(a!1).B(b!1) kon, koff
+# If A is unphosphorylated, it can become phoshorylated by the presence of C
+# Don't need to specify status of binding site 'a' (don't care, don't write):
+    A(T286~0) + C() -> A(T286~P) k_P
+
+end reaction rules
+
+begin observables
+  Molecules AB_complex A(a!1).B(b!1)
+  Molecules A_phosphorylated A(T286~P)
+  Molecules A A(a)
+  Molecules B B(b)
+  Molecules C C()
+end observables
+
+end model
+
+
+
+
+
+
+
+
+
