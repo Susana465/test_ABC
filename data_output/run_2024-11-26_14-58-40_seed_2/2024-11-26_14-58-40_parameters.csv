@@ -12,4 +12,4 @@ Value,Parameter
 0.50588,VolCP
 0.0307,VolPM
 0.01,koff
-200000000.0,200000000.0
+500000.0,kon

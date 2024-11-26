@@ -50,7 +50,7 @@ def run_model(parameter_overrides, bngl_file="test_ABC.bngl"):
     return run_folder, timestamp, df
 
 # different 'kon' values to run through
-kon_values = [1e5, 5e5, 1e6, 5e6, 1e7] 
+kon_values = [1e5, 5e5, 1e6] 
 
 # Iterate over the kon values and run the model
 for kon in kon_values:

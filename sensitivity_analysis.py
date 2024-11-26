@@ -24,17 +24,49 @@ def extract_statistic(data):
     # function for extracting final concentration [C]
     stat = data['C'].iloc[-1]
     print("Final molecule count for column C:")
-    print(stat)
     return stat
 
-# Create an empty dataframe to store stats
+def extract_parameter(params_dict, param_name):
+    """
+    This function extracts the value of a specific parameter from a pandas DataFrame.
+    
+    what arguments it takes:
+    - params_dict (pd.DataFrame): a DataFrame containing parameter names and values.
+    - param_name (str): name of the parameter whose value needs to be extracted.
+
+    what it returns:
+    - parameter_value (float or None): value of the parameter if found, else None.
+    """
+
+    # Locate the parameter in the DataFrame based on its name given by the argument (`param_name`)
+    # Use .loc[] to filter rows where 'Parameter' column matches `param_name`
+    # compare and select the corresponding value from the 'Value' column.
+    parameter = params_dict.loc[params_dict['Parameter'] == param_name, 'Value']
+
+    print(f"Columns in params_dict: {params_dict.columns}")
+    
+    # If paremeter not found:
+    if parameter.empty:
+        print(f"Parameter {param_name} not found.")
+
+    # If the parameter is found,
+    # get the first value (iloc[0]) from the filtered result (there should only be one 'kon'); otherwise, return None.
+    parameter_value = parameter.iloc[0] if not parameter.empty else None
+    
+    print(f"Extracted value for {param_name}: {parameter_value}")
+
+    return parameter_value
+
+
+# Create an empty dataframe to store params and stats
 params_stats = pd.DataFrame(columns=['kon', 'statistic'])
-print(params_stats)
+print(params_stats) #should be empty at this point
 
 # for any directory structure, pull all params we've used an the stats we have defined as above
 
 for run_folder in [os.path.join('data_output', dir) for dir in os.listdir('data_output')]:
     try:
+        print(f"Accessing folder: {run_folder}")
         # Read output data and store statistics
         data_files = glob.glob(os.path.join(run_folder, "*_out.gdat"))
         if len(data_files) > 1:
@@ -42,19 +74,28 @@ for run_folder in [os.path.join('data_output', dir) for dir in os.listdir('data_
         if len(data_files) == 0:
             raise Exception(f"No .gdat file in directory {run_folder}")
         
-        param_files = glob.glob(os.path.join(run_folder, "*_parameters.csv"))
+        # Read parameters in csv file and store values
+        param_files = glob.glob(os.path.join(run_folder, "*.csv"))
         if len(param_files) > 1:
             raise Exception(f"More than one .csv file in directory {run_folder}")
         if len(param_files) == 0:
             raise Exception(f"No .csv file in directory {run_folder}")
         
         # If files are found, proceed with processing
+        # For the statistic
         data = read_gdat(data_files[0])
-        params = pd.read_csv(param_files[0])
+        statistic = extract_statistic(data) #use function defined above for extracting stat
 
-        statistic = extract_statistic(data)
-        kon_value = params.get('kon', [None])[0]
-        params_stats = params_stats.append({'kon': kon_value, 'statistic': statistic}, ignore_index=True)  
+        # For the parameter:
+        params = pd.read_csv(param_files[0])
+        print(f"This is whats in params: {params}")
+
+        kon_value = extract_parameter(params, 'kon')
+        print(f"This is the kon_value: {kon_value}")
+
+        # Add to the dataframe using pd.concat
+        params_stats = pd.concat([params_stats, pd.DataFrame({'kon': [kon_value], 'statistic': [statistic]})], ignore_index=True)
+        print(f"This is the params_stats dataframe: {params_stats}")
 
     # Continue to the next folder despite the error    
     except Exception as e:
