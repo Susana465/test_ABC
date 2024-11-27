@@ -3,22 +3,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import glob
 
-# read gdat file output and put it into a dataframe
 def read_gdat(filename):
+    # read gdat file output and put it into a dataframe
     data = pd.read_table(filename, delim_whitespace=True)
     data.columns = data.columns[1:].append(pd.Index(["remove"]))
     return data.drop("remove", axis=1)
-
-# Call the function with the path to .gdat file
-# filename = 'data_output/run_2024-11-06_10-45-17_seed_2/2024-11-06_10-45-17_out.gdat'  # Replace with your actual file path
-# data = read_gdat(filename)
-
-# Now `data` holds the DataFrame returned by read_gdat
-#print(data)  # Print or use `data` as needed
-
-# Out of which I want to extract the stat I am interested in, such as:
-# Final molecule count 'C'
-# iloc[-1] is used to select the last row in the DataFrame 
 
 def extract_statistic(data):
     # function for extracting final concentration [C]
