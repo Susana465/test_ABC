@@ -58,51 +58,99 @@ def extract_parameter(params_dict, param_name):
     return parameter_value
 
 
-# Create an empty dataframe to store params and stats
-params_stats = pd.DataFrame(columns=['kon', 'statistic'])
-print(params_stats) #should be empty at this point
+def process_StatsAndParams_csv(base_dir, output_file):
+    # Create an empty dataframe to store params and stats
+    params_stats = pd.DataFrame(columns=['kon', 'statistic'])
 
-# for any directory structure, pull all params we've used an the stats we have defined as above
+    # Iterate through each folder in the base directory
+    for run_folder in [os.path.join(base_dir, dir) for dir in os.listdir(base_dir)]:
+        try:
+            print(f"Accessing folder: {run_folder}")
 
-for run_folder in [os.path.join('data_output', dir) for dir in os.listdir('data_output')]:
-    try:
-        print(f"Accessing folder: {run_folder}")
-        # Read output data and store statistics
-        data_files = glob.glob(os.path.join(run_folder, "*_out.gdat"))
-        if len(data_files) > 1:
-            raise Exception(f"More than one .gdat file in directory {run_folder}")
-        if len(data_files) == 0:
-            raise Exception(f"No .gdat file in directory {run_folder}")
+            # Locate output data files
+            data_files = glob.glob(os.path.join(run_folder, "*_out.gdat"))
+            if len(data_files) > 1:
+                raise Exception(f"More than one .gdat file in directory {run_folder}")
+            if len(data_files) == 0:
+                raise Exception(f"No .gdat file in directory {run_folder}")
+            
+            # Locate parameter files
+            param_files = glob.glob(os.path.join(run_folder, "*.csv"))
+            if len(param_files) > 1:
+                raise Exception(f"More than one .csv file in directory {run_folder}")
+            if len(param_files) == 0:
+                raise Exception(f"No .csv file in directory {run_folder}")
+            
+            # Extract data 
+            data = read_gdat(data_files[0])  
+            statistic = extract_statistic(data)  
+
+            # Extract parameters
+            params = pd.read_csv(param_files[0])
+            kon_value = extract_parameter(params, 'kon')
+
+            # Append extracted values to the dataframe
+            params_stats = pd.concat([params_stats, pd.DataFrame({'kon': [kon_value], 'statistic': [statistic]})], ignore_index=True)
+            print(f"Updated params_stats dataframe: {params_stats}")
+
+        except Exception as e:
+            print(f"Error in folder {run_folder}: {e}")
+            continue
+
+    # Save the results to a CSV file
+    params_stats.to_csv(output_file, index=False)
+    print(f"Results saved to {output_file}")
+    return params_stats
+
+base_directory = 'data_output'
+output_csv = 'extracted_statsparams.csv'
+params_stats_df = process_StatsAndParams_csv(base_directory, output_csv)
+
+# # Create an empty dataframe to store params and stats
+# params_stats = pd.DataFrame(columns=['kon', 'statistic'])
+# print(params_stats) #should be empty at this point
+
+# # for any directory structure, pull all params we've used an the stats we have defined as above
+
+# for run_folder in [os.path.join('data_output', dir) for dir in os.listdir('data_output')]:
+#     try:
+#         print(f"Accessing folder: {run_folder}")
+#         # Read output data and store statistics
+#         data_files = glob.glob(os.path.join(run_folder, "*_out.gdat"))
+#         if len(data_files) > 1:
+#             raise Exception(f"More than one .gdat file in directory {run_folder}")
+#         if len(data_files) == 0:
+#             raise Exception(f"No .gdat file in directory {run_folder}")
         
-        # Read parameters in csv file and store values
-        param_files = glob.glob(os.path.join(run_folder, "*.csv"))
-        if len(param_files) > 1:
-            raise Exception(f"More than one .csv file in directory {run_folder}")
-        if len(param_files) == 0:
-            raise Exception(f"No .csv file in directory {run_folder}")
+#         # Read parameters in csv file and store values
+#         param_files = glob.glob(os.path.join(run_folder, "*.csv"))
+#         if len(param_files) > 1:
+#             raise Exception(f"More than one .csv file in directory {run_folder}")
+#         if len(param_files) == 0:
+#             raise Exception(f"No .csv file in directory {run_folder}")
         
-        # If files are found, proceed with processing
-        # For the statistic
-        data = read_gdat(data_files[0])
-        statistic = extract_statistic(data) #use function defined above for extracting stat
+#         # If files are found, proceed with processing
+#         # For the statistic
+#         data = read_gdat(data_files[0])
+#         statistic = extract_statistic(data) #use function defined above for extracting stat
 
-        # For the parameter:
-        params = pd.read_csv(param_files[0])
-        print(f"This is whats in params: {params}")
+#         # For the parameter:
+#         params = pd.read_csv(param_files[0])
+#         print(f"This is whats in params: {params}")
 
-        kon_value = extract_parameter(params, 'kon')
-        print(f"This is the kon_value: {kon_value}")
+#         kon_value = extract_parameter(params, 'kon')
+#         print(f"This is the kon_value: {kon_value}")
 
-        # Add to the dataframe using pd.concat
-        params_stats = pd.concat([params_stats, pd.DataFrame({'kon': [kon_value], 'statistic': [statistic]})], ignore_index=True)
-        print(f"This is the params_stats dataframe: {params_stats}")
+#         # Add to the dataframe using pd.concat
+#         params_stats = pd.concat([params_stats, pd.DataFrame({'kon': [kon_value], 'statistic': [statistic]})], ignore_index=True)
+#         print(f"This is the params_stats dataframe: {params_stats}")
 
-    # Continue to the next folder despite the error    
-    except Exception as e:
-        print(f"Error in folder {run_folder}: {e}")
-        continue
+#     # Continue to the next folder despite the error    
+#     except Exception as e:
+#         print(f"Error in folder {run_folder}: {e}")
+#         continue
 
-params_stats.to_csv('extracted_statistics.csv', index=False)
+# params_stats.to_csv('extracted_statistics.csv', index=False)
 
 #     #for data_file in data_files:
 #         # data = read_gdat(data_file)
