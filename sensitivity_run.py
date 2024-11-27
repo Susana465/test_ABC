@@ -50,11 +50,46 @@ def run_model(parameter_overrides, bngl_file="test_ABC.bngl"):
     return run_folder, timestamp, df
 
 # different 'kon' values to run through
-kon_values = [1e5, 5e5, 1e6] 
+kon_values = [1e-2, 1e1, 1e3, 1e5, 1e8]
+koff_values = [1e-2, 1e1, 1e3, 1e5, 1e8]  
+
+def run_for_values(values):
+    for value in values:
+        print(f"Starting run for {value}")
+        parameter_overrides = {'value': value}
+        run_model(parameter_overrides)
+        print(f"Run completed for {value}")
+
+run_for_values(kon_values)
 
 # Iterate over the kon values and run the model
-for kon in kon_values:
-    print(f"Starting run for kon = {kon}") 
-    parameter_overrides = {'kon': kon}
-    run_model(parameter_overrides)
-    print(f"Run completed for kon = {kon}")
+# for kon in kon_values:
+#     print(f"Starting run for kon = {kon}") 
+#     parameter_overrides = {'kon': kon}
+#     run_model(parameter_overrides)
+#     print(f"Run completed for kon = {kon}")
+
+# # Iterate over the kon values and run the model
+# for koff in koff_values:
+#     print(f"Starting run for koff = {koff}") 
+#     parameter_overrides = {'koff': koff}
+#     run_model(parameter_overrides)
+#     print(f"Run completed for koff = {koff}")
+
+# def run_multiple_parameters(param_names, param_values_list):
+#     """
+#     Run the model for each combination of parameters in param_values_list.
+
+#     param_names: List of parameter names (e.g., ['kon', 'koff'])
+#     param_values_list: List of lists, where each list contains values for one parameter
+
+#     """
+#     # Determine the number of iterations (assumes all lists have the same length)
+#     for param_combination in zip(*param_values_list):
+#         parameter_overrides = {param_names[i]: param_combination[i] for i in range(len(param_names))}
+#         print(f"Starting run with parameters: {parameter_overrides}")
+#         run_model(parameter_overrides)
+#         print(f"Run completed with parameters: {parameter_overrides}")
+
+# # Run the model for both kon and koff values
+# run_multiple_parameters(['kon', 'koff'], [kon_values, koff_values])

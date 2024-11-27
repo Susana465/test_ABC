@@ -9,11 +9,11 @@ def read_gdat(filename):
     data.columns = data.columns[1:].append(pd.Index(["remove"]))
     return data.drop("remove", axis=1)
 
-def extract_statistic(data):
-    # function for extracting final concentration [C]
-    stat = data['C'].iloc[-1]
-    print("Final molecule count for column C:")
-    return stat
+# def extract_statistic(data):
+#     # function for extracting final concentration [C]
+#     stat = data['C'].iloc[-1]
+#     print("Final molecule count for column C:")
+#     return stat
 
 def extract_statistic(data, molecule, stat_type="last", start=None, end=None):
     try:
@@ -136,6 +136,15 @@ def StatsAndParams_to_csv(base_dir, output_file):
 base_directory = 'data_output'
 output_csv = 'extracted_statsparams.csv'
 params_stats_df = StatsAndParams_to_csv(base_directory, output_csv)
+
+plt.figure(figsize=(8, 5))
+plt.scatter(params_stats_df['kon'], params_stats_df['statistic'], color='blue', alpha=0.7)
+plt.xscale('log')  # Logarithmic scale for 'kon'
+plt.title('Scatter Plot of kon vs. statistic (Log Scale)')
+plt.xlabel('kon (log scale)')
+plt.ylabel('statistic')
+plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+plt.show()
 
 # # Create an empty dataframe to store params and stats
 # params_stats = pd.DataFrame(columns=['kon', 'statistic'])
