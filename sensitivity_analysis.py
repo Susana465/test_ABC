@@ -58,7 +58,17 @@ def extract_parameter(params_dict, param_name):
     return parameter_value
 
 
-def process_StatsAndParams_csv(base_dir, output_file):
+def StatsAndParams_to_csv(base_dir, output_file):
+    """
+    This function iterates through all run folders within a specified base directory (data_output/) to save parameters and statistics to a CSV file.
+
+    arguments:
+        base_dir (str): The base directory containing the run folders.
+        output_file (str): the output CSV file where stats and params will be saved.
+
+    returns:
+        pd.DataFrame: param_stats is a dataframe containing the extracted parameters and statistics.
+    """
     # Create an empty dataframe to store params and stats
     params_stats = pd.DataFrame(columns=['kon', 'statistic'])
 
@@ -81,11 +91,11 @@ def process_StatsAndParams_csv(base_dir, output_file):
             if len(param_files) == 0:
                 raise Exception(f"No .csv file in directory {run_folder}")
             
-            # Extract data 
+            # Extract data using function defined previously 
             data = read_gdat(data_files[0])  
             statistic = extract_statistic(data)  
 
-            # Extract parameters
+            # Extract parameters using function defined previously 
             params = pd.read_csv(param_files[0])
             kon_value = extract_parameter(params, 'kon')
 
@@ -104,7 +114,7 @@ def process_StatsAndParams_csv(base_dir, output_file):
 
 base_directory = 'data_output'
 output_csv = 'extracted_statsparams.csv'
-params_stats_df = process_StatsAndParams_csv(base_directory, output_csv)
+params_stats_df = StatsAndParams_to_csv(base_directory, output_csv)
 
 # # Create an empty dataframe to store params and stats
 # params_stats = pd.DataFrame(columns=['kon', 'statistic'])
