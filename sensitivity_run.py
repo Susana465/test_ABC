@@ -53,14 +53,14 @@ def run_model(parameter_overrides, bngl_file="test_ABC.bngl"):
 kon_values = [1e-2, 1e1, 1e3, 1e5, 1e8]
 koff_values = [1e-2, 1e1, 1e3, 1e5, 1e8]  
 
-def run_for_values(values):
+def parameter_sweep(values):
     for value in values:
         print(f"Starting run for {value}")
         parameter_overrides = {'value': value}
         run_model(parameter_overrides)
         print(f"Run completed for {value}")
 
-run_for_values(kon_values)
+parameter_sweep(kon_values)
 
 # Iterate over the kon values and run the model
 # for kon in kon_values:
