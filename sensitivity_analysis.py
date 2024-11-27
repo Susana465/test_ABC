@@ -15,6 +15,38 @@ def extract_statistic(data):
     print("Final molecule count for column C:")
     return stat
 
+def extract_statistic(data, molecule, stat_type="last", start=None, end=None):
+    try:
+        if molecule not in data:
+            raise ValueError(f"Molecule '{molecule}' not found in data.") 
+         
+        if stat_type == "last":
+            stat = data[molecule].iloc[-1]
+
+        elif stat_type == "first":
+            stat = data[molecule].iloc[0]
+
+        elif stat_type == "range":
+            if start is not None and end is not None:
+                stat = data[molecule].iloc[start:end]
+            else:
+                raise ValueError("For 'range' type, 'start' and 'end' must be specified.")
+            
+        else:
+            raise ValueError(f"Unknown stat_type '{stat_type}'. Use 'last', 'first', or 'range'.")
+        print(f"Extracted statistic ({stat_type}) for molecule '{molecule}': {stat}")
+
+        return stat
+    
+    except ValueError as ve:
+        print(f"ValueError: {ve}")
+        return None
+    
+    except Exception as e:
+        print(f"An unexpected error occurred while extracting '{stat_type}' from molecule '{molecule}': {e}")
+        return None
+
+    
 def extract_parameter(params_dict, param_name):
     """
     This function extracts the value of a specific parameter from a pandas DataFrame.
@@ -82,7 +114,7 @@ def StatsAndParams_to_csv(base_dir, output_file):
             
             # Extract data using function defined previously 
             data = read_gdat(data_files[0])  
-            statistic = extract_statistic(data)  
+            statistic = extract_statistic(data, molecule="C", stat_type="last" )  
 
             # Extract parameters using function defined previously 
             params = pd.read_csv(param_files[0])
