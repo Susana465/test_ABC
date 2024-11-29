@@ -6,7 +6,7 @@ from mcell_params import set_up_model, process_parameters
 def run_model(parameter_overrides, bngl_file="test_ABC.bngl"):
     # Define the parameter overrides and put it into a dict
     # Create a string that summarizes the parameter overrides for folder naming
-    #override_str = '_'.join([f"{key}_{value}" for key, value in parameter_overrides.items()])
+    # override_str = '_'.join([f"{key}_{value}" for key, value in parameter_overrides.items()])
 
     # Set up the model described in mcell_params.py under the function set_up_model()
     model = set_up_model()
@@ -50,17 +50,26 @@ def run_model(parameter_overrides, bngl_file="test_ABC.bngl"):
     return run_folder, timestamp, df
 
 # different 'kon' values to run through
-kon_values = [1e-2, 1e1, 1e3, 1e5, 1e8]
+kon_values = [1e-2, 1e1, 1e3]
 koff_values = [1e-2, 1e1, 1e3, 1e5, 1e8]  
 
-def parameter_sweep(values):
-    for value in values:
-        print(f"Starting run for {value}")
-        parameter_overrides = {'value': value}
-        run_model(parameter_overrides)
-        print(f"Run completed for {value}")
+def parameter_sweep(values, parameter_name):
+    """
+    This (void) function does a parameter sweep by iterating over a list of values for a given parameter.
 
-parameter_sweep(kon_values)
+    It's primary goal is to perform an action (run model iteratively) rather than calculate and return a value.
+
+    Arguments it takes:
+    values (list): A list of values to sweep through for the specified parameter.
+    parameter_name (str): The name of the parameter to override in each iteration.
+    """
+    for value in values:
+        print(f"Starting run for {parameter_name} = {value}")
+        parameter_overrides = {parameter_name: value}
+        run_model(parameter_overrides)
+        print(f"Run completed for {parameter_name} = {value}")
+
+parameter_sweep(kon_values, 'kon')
 
 # Iterate over the kon values and run the model
 # for kon in kon_values:

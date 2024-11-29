@@ -134,7 +134,7 @@ def StatsAndParams_to_csv(base_dir, output_file):
     return params_stats
 
 base_directory = 'data_output'
-output_csv = 'extracted_statsparams.csv' #something here is off/wrong
+output_csv = 'extracted_statsparams.csv' 
 params_stats_df = StatsAndParams_to_csv(base_directory, output_csv)
 
 plt.figure(figsize=(8, 5))
