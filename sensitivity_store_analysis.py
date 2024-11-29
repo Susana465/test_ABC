@@ -79,7 +79,7 @@ def extract_parameter(params_dict, param_name):
     return parameter_value
 
 
-def StatsAndParams_to_csv(base_dir, output_file):
+def StatsAndParams_to_csv(base_dir, output_file, extract_statistic_func, molecule, stat_type):
     """
     This function iterates through all run folders within a specified base directory (data_output/) to save parameters and statistics to a CSV file.
 
@@ -114,7 +114,7 @@ def StatsAndParams_to_csv(base_dir, output_file):
             
             # Extract data using function defined previously 
             data = read_gdat(data_files[0])  
-            statistic = extract_statistic(data, molecule="C", stat_type="last" )  
+            statistic = extract_statistic_func(data, molecule = molecule, stat_type = stat_type )  
 
             # Extract parameters using function defined previously 
             params = pd.read_csv(param_files[0])
@@ -133,9 +133,18 @@ def StatsAndParams_to_csv(base_dir, output_file):
     print(f"Results saved to {output_file}")
     return params_stats
 
+# Define variables:
 base_directory = 'data_output'
 output_csv = 'extracted_statsparams.csv' 
-params_stats_df = StatsAndParams_to_csv(base_directory, output_csv)
+molecule = 'C'
+stat_type ='last'
+
+# Having extract_statistic as an argument means 
+# I can then call a function that extracts a statistic in a different way to the current one
+extract_statistic_func = extract_statistic
+
+# Call and save params and stats in a df:
+params_stats_df = StatsAndParams_to_csv(base_directory, output_csv, extract_statistic_func, molecule, stat_type)
 
 plt.figure(figsize=(8, 5))
 plt.scatter(params_stats_df['kon'], params_stats_df['statistic'], color='blue', alpha=0.7)
