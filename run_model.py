@@ -3,10 +3,17 @@ from prepare_run_files import prepare_out_folder
 # Call the function "set_up_model" that runs mcell model with params specs from mcell_params.py
 from mcell_params import set_up_model, process_parameters
 
-def run_model(parameter_overrides, bngl_file="test_ABC.bngl"):
-    # Define the parameter overrides and put it into a dict
-    # Create a string that summarizes the parameter overrides for folder naming
-    # override_str = '_'.join([f"{key}_{value}" for key, value in parameter_overrides.items()])
+def run_model(parameter_overrides=None, bngl_file="test_ABC.bngl"):
+    """
+    Runs the MCell model with optional parameter overrides.
+
+    Args:
+        parameter_overrides: Optional dictionary of parameters to override.
+        bngl_file: Name of the BNGL file to load.
+        
+    Returns:
+        Tuple containing the run folder path, timestamp, and processed parameters DataFrame.
+    """
 
     # Set up the model described in mcell_params.py under the function set_up_model()
     model = set_up_model()
@@ -24,6 +31,10 @@ def run_model(parameter_overrides, bngl_file="test_ABC.bngl"):
             every_n_timesteps=100
         )
         model.add_viz_output(viz_output)
+
+    #  If no overrides are provided, passing an empty dictionary ensures the model behaves as it would without any overrides.
+    if parameter_overrides is None:
+        parameter_overrides = {}
 
     # Load the BNGL file and apply the parameter overrides
     model.load_bngl(
@@ -48,3 +59,5 @@ def run_model(parameter_overrides, bngl_file="test_ABC.bngl"):
     model.end_simulation()
 
     return run_folder, timestamp, df
+
+run_model()
