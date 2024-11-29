@@ -54,6 +54,35 @@ sys.path.append(os.path.join(MCELL_PATH, 'lib'))
 import mcell as m
 ```
 
+## 3. Set up a python environment
+In order to make sure we are both working with the same versions of python and dependencies required to run the python script in this repo, it will be useful to create an environment.
+
+With a virtual environment, it’s possible to retain all the information in our projects like the dependencies, so anyone else can duplicate the same environment we’re working with.
+
+### 3.1. If you have conda (the environment management system I use): 
+
+You can use the [environment.yml](./environment.yml) file in this repo, and create an environment with the following command:
+
+```
+conda env create --file environment.yml
+```
+
+This will create an environment called *'camkii-project-env'*. Then activate the environment and run the [mcell_hexamer.py](./mcell_hexamer.py) file there.
+
+PS. I have found [these carpentries](https://carpentries-incubator.github.io/introduction-to-conda-for-data-scientists/) quite helpful with queries regarding conda environments, if you need some guidance here. 
+
+### 3.2. If you use a different environment manager:
+
+You will likely need to use the [requirements.txt](./requirements.txt) file instead. 
+
+The commands to create and activate an environment using virtualenv, pipenv, venv, pyenv, etc will be different depending on which one you use. As an example, if you were using [venv](https://docs.python.org/3/library/venv.html), then you would need to do something like this:
+
+```virtualenv my-env ``` to create your new environment (called 'my-env' here)
+
+```source my-env/bin/activate``` to enter the virtual environment
+
+```pip install -r requirements.txt``` to install the requirements in the current environment
+
 ## Step 1
 Have a look at the [`test_ABC.bngl`](test_ABC.bngl) file, are you happy with the parameters being used? 
 
