@@ -17,6 +17,11 @@ The important files to run the simulation are:
 ## Output files
 - `data_output/`: contains timestamped folders that are created with scripts mentioned above. Each timestamped folder contains the outputs from running the python scripts.
 
+## Parameter Sensitivity Analysis files:
+- 
+- 
+- 
+
 # How to use files in this repo
 
 ## 1. Install MCell/CellBlender v4.0.6 bundle with Blender 2.93
@@ -83,6 +88,8 @@ The commands to create and activate an environment using virtualenv, pipenv, ven
 
 ```pip install -r requirements.txt``` to install the requirements in the current environment
 
+## 4. Running the code
+---
 ## Step 1
 Have a look at the [`test_ABC.bngl`](test_ABC.bngl) file, are you happy with the parameters being used? 
 
