@@ -142,9 +142,17 @@ plt.scatter(params_stats_df['kon'], params_stats_df['statistic'], color='blue', 
 plt.xscale('log')  # Logarithmic scale for 'kon'
 plt.title('Scatter Plot of kon vs. statistic (Log Scale)')
 plt.xlabel('kon (log scale)')
-plt.ylabel('statistic')
+plt.ylabel('Final [C]')
 plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+
+# Save the plot to a file
+plot_filename = "scatter_plot_kon_vs_statistic.png"  
+plt.savefig(plot_filename, dpi=300, bbox_inches='tight')  
+print(f"Plot saved as {plot_filename}")
+
+# Show the plot
 plt.show()
+input("Press Enter to exit...")
 
 # # Create an empty dataframe to store params and stats
 # params_stats = pd.DataFrame(columns=['kon', 'statistic'])
