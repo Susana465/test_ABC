@@ -23,7 +23,7 @@ In order to perform sensitivity analysis on the parameters used for this model, 
 - [`sensitivity_run.py`](sensitivity_run.py): runs the model iteratively overriding specified parameters (for example, 'kon').
 - [`sensitivity_store_analysis.py`](sensitivity_store_analysis.py): extracts required statistics from output data and stores it in a specified [`extracted_statsparams.csv`](extracted_statsparams.csv) file. This script also plots the stat vs parameter in a scatter plot.
 
-# How to use files in this repo
+# Initial Setup Requirements
 
 ## 1. Install MCell/CellBlender v4.0.6 bundle with Blender 2.93
 To run the model files, you will need MCell. The CellBlender bundle containing MCell4 is available for download for different operating systems at the MCell.org website: https://mcell.org/download.html
@@ -89,7 +89,7 @@ The commands to create and activate an environment using virtualenv, pipenv, ven
 
 ```pip install -r requirements.txt``` to install the requirements in the current environment
 
-## 4. Running the code
+# Running the code
 ---
 ## Step 1
 Have a look at the [`test_ABC.bngl`](test_ABC.bngl) file, are you happy with the parameters being used? 
