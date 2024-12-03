@@ -19,6 +19,7 @@ The important files to run the simulation are:
 - [`extracted_statsparams.csv`](extracted_statsparams.csv): this file is created during a sensitivity analysis run to store the required parameters and statistics. 
 
 ## Parameter Sensitivity Analysis files:
+In order to perform sensitivity analysis on the parameters used for this model, the files requires are:
 - [`sensitivity_run.py`](sensitivity_run.py): runs the model iteratively overriding specified parameters (for example, 'kon').
 - [`sensitivity_store_analysis.py`](sensitivity_store_analysis.py): extracts required statistics from output data and stores it in a specified [`extracted_statsparams.csv`](extracted_statsparams.csv) file. This script also plots the stat vs parameter in a scatter plot.
 
