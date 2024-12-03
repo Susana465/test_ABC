@@ -18,9 +18,8 @@ The important files to run the simulation are:
 - `data_output/`: contains timestamped folders that are created with scripts mentioned above. Each timestamped folder contains the outputs from running the python scripts.
 
 ## Parameter Sensitivity Analysis files:
-- 
-- 
-- 
+- [`sensitivity_run.py`](sensitivity_run.py):
+- [`sensitivity_store_analysis.py`](sensitivity_store_analysis.py):
 
 # How to use files in this repo
 
