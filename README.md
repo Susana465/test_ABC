@@ -9,7 +9,6 @@
     - [Install MCell/CellBlender v4.0.6 bundle with Blender 2.93](#1-install-mcellcellblender-v406-bundle-with-blender-293)
     - [Setting System Variable MCELL_PATH and adding Python 3.9 to PATH](#2-setting-system-variable-mcell_path-and-adding-python-39-to-path)
     - [Set up a python environment](#3-set-up-a-python-environment)
-(#32-if-you-use-a-different-environment-manager)
 3. [Running the code](#running-the-code)
     - [Step 1](#step-1)
     - [Step 2](#step-2)
