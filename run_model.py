@@ -18,7 +18,7 @@ def run_model(parameter_overrides=None, bngl_file="test_ABC.bngl"):
     # Set up the model described in mcell_params.py under the function set_up_model()
     model = set_up_model()
 
-    # Define your MCell parameter files
+    # Define MCell parameter files
     mcell_param_file = "mcell_params.py"
 
     # Call the function and capture the path to the run folder and timestamp

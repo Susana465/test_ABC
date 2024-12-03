@@ -75,7 +75,7 @@ You can use the [environment.yml](./environment.yml) file in this repo, and crea
 conda env create --file environment.yml
 ```
 
-This will create an environment called *'camkii-project-env'*. Then activate the environment and run the [mcell_hexamer.py](./mcell_hexamer.py) file there.
+This will create an environment called *'camkii-project-env'*. You will then have to activate the environment and run the files there. 
 
 PS. I have found [these carpentries](https://carpentries-incubator.github.io/introduction-to-conda-for-data-scientists/) quite helpful with queries regarding conda environments, if you need some guidance here. 
 
@@ -96,13 +96,13 @@ The commands to create and activate an environment using virtualenv, pipenv, ven
 ## Step 1
 Have a look at the [`test_ABC.bngl`](test_ABC.bngl) file, are you happy with the parameters being used? 
 
-Would you like to change something? You can make changes in this file, which will then be accessed via [`prepare_run_files.py`](prepare_run_files.py) to load its parameters and run them through mcell. More information on how this works can be found in this documentation [Loading a BNGL File](https://mcell.org/mcell4_documentation/bngl.html)
+Would you like to change something? You can make changes in this file, which will then be accessed via [`run_model.py`](run_model.py) to load its parameters and run them through mcell. More information on how this works can be found in this documentation [Loading a BNGL File](https://mcell.org/mcell4_documentation/bngl.html)
 
 ## Step 2
-Once you are happy with parameters set in the .bngl file, go to the [`mcell_params.py`](mcell_params.py) file. You can change parameters in here too, if necessary. These are also accessed via [`prepare_run_files.py`](prepare_run_files.py).
+Once you are happy with parameters set in the .bngl file, go to the [`mcell_params.py`](mcell_params.py) file. You can change parameters in here too, like geometry of the cell used, if necessary. These are also accessed via [`run_model.py`](run_model.py) to run the model.
 
 ## Step 3
-After making sure parameters are all set up, the [`prepare_run_files.py`](prepare_run_files.py) file prepares a timestamped folder where a copy of the used files above are saved. It also saves visualisation data and a parameters.csv file that contains parameters extracted from the .bngl file used. 
+After making sure parameters are all set up, the [`prepare_run_files.py`](prepare_run_files.py) file prepares a timestamped folder where a copy of the used files above are saved. It also has the option to save visualisation data and a parameters.csv file that contains parameters extracted from the .bngl file used. 
 
 You do not need to do anything here, but it is useful to have a look at what this file looks like to understand what is happening when the ode is being run. 
 
@@ -110,7 +110,54 @@ You do not need to do anything here, but it is useful to have a look at what thi
 Run the following in your command line:
 
 ```python
-python run_python_files.py
+python run_model()
 ```
 
-This works python magic to action all the instructions given in the other python scripts.
+## Expected Outputs
+In your terminal, you should get a message similar to the one below, with different time stamped folders, and details.
+
+```
+Import of MCell was successful
+New run, files will be saved in data_output\run_2024-12-03_11-05-36_seed_2.
+Initializing 27000 waypoints... 
+Partition contains 30^3 subpartitions, subpartition size is 0.05 microns.
+Copyright (C) 2006-2021 by
+  The National Center for Multiscale Modeling of Biological Systems,
+  The Salk Institute for Biological Studies, and
+  Pittsburgh Supercomputing Center, Carnegie Mellon University,
+
+**********************************************************************
+MCell development is supported by the NIGMS-funded (P41GM103712)
+National Center for Multiscale Modeling of Biological Systems (MMBioS).
+Please acknowledge MCell in your publications.
+**********************************************************************
+
+Iterations: 0 of 100
+Released 100 A@CP from "Release of A@CP at CP" at iteration 0.
+Released 150 B@CP from "Release of B@CP at CP" at iteration 0.
+Iterations: 10 of 100 (22.4941 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 20 of 100 (30.2137 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 30 of 100 (20.9467 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 40 of 100 (19.6157 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 50 of 100 (20.8508 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 60 of 100 (14.7999 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 70 of 100 (19.678 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 80 of 100 (24.2053 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 90 of 100 (26.7291 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 100 of 100 (37.1921 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iteration 100, simulation finished successfully
+Total number of ray-subvolume intersection tests (number of ray_trace calls): 572174
+Total number of ray-polygon intersection tests: 5442556
+Total number of ray-polygon intersections: 1446978
+Total number of mol reflections from a wall: 556787
+Total number of vol mol vol mol collisions: 251
+Total number of molecule moves between walls: 0
+Total number of usages of waypoints for counted volumes: 0
+Total number of counted volume recomputations: 350
+Total number of diffuse 3d calls: 15387
+Average diffusion jump was: 0.9968 timesteps  (15337.8/15387)
+Simulation CPU time = 3.9375 (user) and 0.015625 (system)
+Simulation CPU time without iteration 0 = 3.84375 (user) and 0.015625 (system)
+
+```
+You should get a timestamped folder with files in it, as described in "Output files" above. 
