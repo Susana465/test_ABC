@@ -15,11 +15,12 @@ The important files to run the simulation are:
 - [`prepare_run_files.py`](prepare_run_files.py): script that prepares files to be copied, ran, and saved in a timestamped folder.
 
 ## Output files
-- `data_output/`: contains timestamped folders that are created with scripts mentioned above. Each timestamped folder contains the outputs from running the python scripts.
+- `data_output/`: contains timestamped folders that are created with scripts mentioned above. Each timestamped folder contains the outputs from running the python scripts, which should include a record of the parameters used (in a .csv file), the mcell_params.py file used, and the .bngl file used for that specific run.
+- [`extracted_statsparams.csv`](extracted_statsparams.csv): this file is created during a sensitivity analysis run to store the required parameters and statistics. 
 
 ## Parameter Sensitivity Analysis files:
-- [`sensitivity_run.py`](sensitivity_run.py):
-- [`sensitivity_store_analysis.py`](sensitivity_store_analysis.py):
+- [`sensitivity_run.py`](sensitivity_run.py): runs the model iteratively overriding specified parameters (for example, 'kon').
+- [`sensitivity_store_analysis.py`](sensitivity_store_analysis.py): extracts required statistics from output data and stores it in a specified [`extracted_statsparams.csv`](extracted_statsparams.csv) file. This script also plots the stat vs parameter in a scatter plot.
 
 # How to use files in this repo
 
