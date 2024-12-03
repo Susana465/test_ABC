@@ -1,3 +1,24 @@
+# Table of Contents
+
+1. [What is in this repository](#what-is-in-this-repository)
+    - [BioNetGen and MCell model files](#bionetgen-and-mcell-model-files)
+    - [Run-the-model files](#run-the-model-files)
+    - [Output files](#output-files)
+    - [Parameter Sensitivity Analysis files](#parameter-sensitivity-analysis-files)
+2. [Initial Setup Requirements](#initial-setup-requirements)
+    - [Install MCell/CellBlender v4.0.6 bundle with Blender 2.93](#1-install-mcellcellblender-v406-bundle-with-blender-293)
+    - [Setting System Variable MCELL_PATH and adding Python 3.9 to PATH](#2-setting-system-variable-mcell_path-and-adding-python-39-to-path)
+        - [Why do you need to do this](#22-why-do-you-need-to-do-this)
+    - [Set up a python environment](#3-set-up-a-python-environment)
+        - [Using conda](#31-if-you-have-conda-the-environment-management-system-i-use)
+        - [Using a different environment manager](#32-if-you-use-a-different-environment-manager)
+3. [Running the code](#running-the-code)
+    - [Step 1](#step-1)
+    - [Step 2](#step-2)
+    - [Step 3](#step-3)
+    - [Step 4](#step-4)
+    - [Expected Outputs](#expected-outputs)
+
 # What is in this repository
 ---
 
