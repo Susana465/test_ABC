@@ -1,4 +1,5 @@
 # What is in this repository
+---
 
 This is a toy repo where I create equivalent models of my thesis project. I test the files here with models that run a lot faster and are much simpler than my dodecamer one. 
 
@@ -24,6 +25,7 @@ In order to perform sensitivity analysis on the parameters used for this model, 
 - [`sensitivity_store_analysis.py`](sensitivity_store_analysis.py): extracts required statistics from output data and stores it in a specified [`extracted_statsparams.csv`](extracted_statsparams.csv) file. This script also plots the stat vs parameter in a scatter plot.
 
 # Initial Setup Requirements
+---
 
 ## 1. Install MCell/CellBlender v4.0.6 bundle with Blender 2.93
 To run the model files, you will need MCell. The CellBlender bundle containing MCell4 is available for download for different operating systems at the MCell.org website: https://mcell.org/download.html
