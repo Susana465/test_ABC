@@ -7,12 +7,12 @@ There might be some files that are saved as tests outside of the main ones, as I
 The important files to run the simulation are:
 
 ## BioNetGen and MCell model files:
-- [`mcell_params.py`](mcell_params.py): is the script where the PATH to mcell is defined.
-- [`test_ABC.bngl`](test_ABC.bngl): where model is created and described using BNGL. 
+- [`mcell_params.py`](mcell_params.py): is the script where the PATH to mcell is defined, where the mcell model is set up, and where parameters are loaded.
+- [`test_ABC.bngl`](test_ABC.bngl): where the model reactions are created and described using BNGL. 
 
 ## Run-the-model files:
+- [`run_model.py`](run_model.py): script that runs the model.
 - [`prepare_run_files.py`](prepare_run_files.py): script that prepares files to be copied, ran, and saved in a timestamped folder.
-- [`run_python_files.py`](run_python_files.py): script executor that automates the execution of the other Python scripts.
 
 ## Output files
 - `data_output/`: contains timestamped folders that are created with scripts mentioned above. Each timestamped folder contains the outputs from running the python scripts.
