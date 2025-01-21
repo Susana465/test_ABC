@@ -46,6 +46,8 @@ def extract_statistic(data, molecule, stat_type="last", start=None, end=None):
         print(f"An unexpected error occurred while extracting '{stat_type}' from molecule '{molecule}': {e}")
         return None
 
+# Global variable for param_value
+parameter_value = None  # Placeholder for extracted parameter value
     
 def extract_parameter(params_dict, param_name):
     """
@@ -72,6 +74,7 @@ def extract_parameter(params_dict, param_name):
 
     # If the parameter is found,
     # get the first value (iloc[0]) from the filtered result (there should only be one 'kon'); otherwise, return None.
+    global parameter_value
     parameter_value = parameter.iloc[0] if not parameter.empty else None
     
     print(f"Extracted value for {param_name}: {parameter_value}")
@@ -79,7 +82,7 @@ def extract_parameter(params_dict, param_name):
     return parameter_value
 
 
-def StatsAndParams_to_csv(base_dir, output_file, extract_statistic_func, molecule, stat_type):
+def StatsAndParams_to_csv(base_dir, output_file, extract_statistic_func, molecule, stat_type, param_name):
     """
     This function iterates through all run folders within a specified base directory (data_output/) to save parameters and statistics to a CSV file.
 
@@ -91,7 +94,7 @@ def StatsAndParams_to_csv(base_dir, output_file, extract_statistic_func, molecul
         pd.DataFrame: param_stats is a dataframe containing the extracted parameters and statistics.
     """
     # Create an empty dataframe to store params and stats
-    params_stats = pd.DataFrame(columns=['kon', 'statistic'])
+    params_stats = pd.DataFrame(columns=['parameter_value', 'statistic'])
 
     # Iterate through each folder in the base directory
     for run_folder in [os.path.join(base_dir, dir) for dir in os.listdir(base_dir)]:
@@ -118,10 +121,10 @@ def StatsAndParams_to_csv(base_dir, output_file, extract_statistic_func, molecul
 
             # Extract parameters using function defined previously 
             params = pd.read_csv(param_files[0])
-            kon_value = extract_parameter(params, 'kon')
+            param_value = extract_parameter(params, param_name)
 
             # Append extracted values to the dataframe
-            params_stats = pd.concat([params_stats, pd.DataFrame({'kon': [kon_value], 'statistic': [statistic]})], ignore_index=True)
+            params_stats = pd.concat([params_stats, pd.DataFrame({'parameter_value': [param_value], 'statistic': [statistic]})], ignore_index=True)
             print(f"Updated params_stats dataframe: {params_stats}")
 
         except Exception as e:
@@ -138,16 +141,17 @@ base_directory = 'data_output'
 output_csv = 'extracted_statsparams.csv' 
 molecule = 'C'
 stat_type ='last'
+param_name ='kon'
 
 # Having extract_statistic as an argument means 
 # I can then call a function that extracts a statistic in a different way to the current one
 extract_statistic_func = extract_statistic
 
 # Call and save params and stats in a df:
-params_stats_df = StatsAndParams_to_csv(base_directory, output_csv, extract_statistic_func, molecule, stat_type)
+params_stats_df = StatsAndParams_to_csv(base_directory, output_csv, extract_statistic_func, molecule, stat_type, param_name)
 
 plt.figure(figsize=(8, 5))
-plt.scatter(params_stats_df['kon'], params_stats_df['statistic'], color='blue', alpha=0.7)
+plt.scatter(params_stats_df['parameter_value'], params_stats_df['statistic'], color='blue', alpha=0.7)
 plt.xscale('log')  # Logarithmic scale for 'kon'
 plt.title('Scatter Plot of kon vs. statistic (Log Scale)')
 plt.xlabel('kon (log scale)')
