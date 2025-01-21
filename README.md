@@ -128,7 +128,7 @@ You do not need to do anything here, but it is useful to have a look at what thi
 Run the following in your command line:
 
 ```python
-python run_model()
+python run_model.py
 ```
 
 ## Expected Outputs
