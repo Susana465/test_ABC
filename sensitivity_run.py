@@ -27,7 +27,9 @@ def parameter_sweep(values, parameter_name):
         run_model(parameter_overrides)
         print(f"Run completed for {parameter_name} = {value}")
 
+#parameter_name argument needs to match the name of the parameter_kon/koff in the bngl file (as its saved into a dictionary that is later used to access this value)
 parameter_sweep(kon_values, 'kon')
+
 
 # Iterate over the kon values and run the model
 # for kon in kon_values:
