@@ -38,7 +38,7 @@ The important files to run the simulation are:
 - [`extracted_statsparams.csv`](extracted_statsparams.csv): this file is created during a sensitivity analysis run to store the required parameters and statistics. 
 
 ## Parameter Sensitivity Analysis files:
-In order to perform sensitivity analysis on the parameters used for this model, the files requires are:
+In order to perform sensitivity analysis on the parameters used for this model, the files required are:
 - [`sensitivity_run.py`](sensitivity_run.py): runs the model iteratively overriding specified parameters (for example, 'kon').
 - [`sensitivity_store_analysis.py`](sensitivity_store_analysis.py): extracts required statistics from output data and stores it in a specified [`extracted_statsparams.csv`](extracted_statsparams.csv) file. This script also plots the stat vs parameter in a scatter plot.
 
@@ -109,7 +109,7 @@ The commands to create and activate an environment using virtualenv, pipenv, ven
 
 ```pip install -r requirements.txt``` to install the requirements in the current environment
 
-# Running the code
+# Running the code (as a one-off)
 ---
 ## Step 1
 Have a look at the [`test_ABC.bngl`](test_ABC.bngl) file, are you happy with the parameters being used? 
@@ -179,3 +179,79 @@ Simulation CPU time without iteration 0 = 3.84375 (user) and 0.015625 (system)
 
 ```
 You should get a timestamped folder with files in it, as described in "[Output files](#output-files)" above.
+
+# Running the code (for sensitivity analysis)
+
+## Step 1:
+
+Check and modify the parameter values you'd like to iteratively run through in [`sensitivity_run.py`](sensitivity_run.py). 
+
+## Step2: 
+
+To run the model iteratively overriding specified parameters (for example, 'kon'), copy and paste the following in your command line:
+
+```python
+python sensitivity_run.py 
+```
+
+## Step 3:
+
+To extract required statistics from output data and store it in a specified extracts required statistics from output data and stores it in a specified, run the following in your command line:
+
+```python
+python sensitivity_store_analysis.py
+```
+This script also plots the stat vs parameter in a scatter plot.
+
+## Expected outputs:
+
+After running [`sensitivity_run.py`](sensitivity_run.py), you should get a message for each iteration run, something like this in your command line:
+
+```
+Run completed for kon = 0.5
+Starting run for kon = 1
+New run, files will be saved in data_output\run_2025-01-23_16-17-28_seed_2.
+
+Initializing 27000 waypoints... 
+Partition contains 30^3 subpartitions, subpartition size is 0.05 microns.
+Copyright (C) 2006-2021 by
+  The National Center for Multiscale Modeling of Biological Systems,
+  The Salk Institute for Biological Studies, and
+  Pittsburgh Supercomputing Center, Carnegie Mellon University,
+
+**********************************************************************
+MCell development is supported by the NIGMS-funded (P41GM103712)
+National Center for Multiscale Modeling of Biological Systems (MMBioS).
+Please acknowledge MCell in your publications.
+**********************************************************************
+
+Iterations: 0 of 100
+Released 100 A@CP from "Release of A@CP at CP" at iteration 0.
+Released 150 B@CP from "Release of B@CP at CP" at iteration 0.
+Iterations: 10 of 100 (8.94984 iter/sec) [active/total species 5/6, rxn classes 1, active/total reactant classes 2/2]
+Iterations: 20 of 100 (7.36762 iter/sec) [active/total species 5/6, rxn classes 1, active/total reactant classes 2/2]
+Iterations: 30 of 100 (11.4676 iter/sec) [active/total species 5/6, rxn classes 1, active/total reactant classes 2/2]
+## Parameter Sensitivity Analysis files:
+In order to perform sensitivity analysis on the parameters used for this model, the files required are:
+- [`sensitivity_run.py`](sensitivity_run.py): runs the model iteratively overriding specified parameters (for example, 'kon').
+- [`sensitivity_store_analysis.py`](sensitivity_store_analysis.py): extracts required statistics from output data and stores it in a specified [`extracted_statsparams.csv`](extracted_statsparams.csv) file. This script also plots the stat vs parameter in a scatter plot.
+
+...
+```
+As for the [`sensitivity_store_analysis.py`](sensitivity_store_analysis.py) output, you should get a [`extracted_statsparams.csv`](extracted_statsparams.csv) file, which is created during a sensitivity analysis run to store the required parameters and statistics. 
+
+With the extracted parameter an statistic as columns:
+
+```
+kon,statistic
+88900000.0,100.0
+100000000.0,100.0
+100000.0,6.0
+200000.0,9.0
+300000.0,17.0
+400000.0,12.0
+500000.0,11.0
+600000.0,26.0
+700000.0,38.0
+...
+```
