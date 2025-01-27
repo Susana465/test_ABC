@@ -15,7 +15,13 @@
     - [Step 3](#step-3)
     - [Step 4](#step-4)
     - [Expected Outputs](#expected-outputs)
-
+4. [Running the code](#running-the-code-1)
+    - [Step 1](#step-1-1)
+    - [Step 2](#step-2-1)
+    - [Step 3](#step-3-1)
+    - [Step 4](#step-4-1)
+    - [Expected Outputs](#expected-outputs-1)
+    
 # What is in this repository
 ---
 
