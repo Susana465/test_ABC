@@ -18,7 +18,7 @@ begin parameters
   VolPM 0.0307 # from volume of 0.505 r = 0.494 and area = 3.07um2 * 0.01um thickness. Assuming a thickness of 0.01 microns for the PM
   NA_um3 6.022e8 # Avogadro's number mutiplied by 1e-15 since we are using volume units of microns(^-3)
   VOL_RXN 1
-  MCELL_REDEFINE_NA_um3 VOL_RXN # In MCell the units get multiplied by V_RXN so they stay the same
+  MCELL_REDEFINE_VOL_RXN NA_um3 # In MCell the units get multiplied by V_RXN so they stay the same
 
 end parameters
 

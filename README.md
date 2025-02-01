@@ -1,4 +1,29 @@
+# Table of Contents
+
+1. [What is in this repository](#what-is-in-this-repository)
+    - [BioNetGen and MCell model files](#bionetgen-and-mcell-model-files)
+    - [Run-the-model files](#run-the-model-files)
+    - [Output files](#output-files)
+    - [Parameter Sensitivity Analysis files](#parameter-sensitivity-analysis-files)
+2. [Initial Setup Requirements](#initial-setup-requirements)
+    - [Install MCell/CellBlender v4.0.6 bundle with Blender 2.93](#1-install-mcellcellblender-v406-bundle-with-blender-293)
+    - [Setting System Variable MCELL_PATH and adding Python 3.9 to PATH](#2-setting-system-variable-mcell_path-and-adding-python-39-to-path)
+    - [Set up a python environment](#3-set-up-a-python-environment)
+3. [Running the code (as a one-off)](#running-the-code)
+    - [Step 1](#step-1)
+    - [Step 2](#step-2)
+    - [Step 3](#step-3)
+    - [Step 4](#step-4)
+    - [Expected Outputs](#expected-outputs)
+4. [Running the code (for sensitivity analysis)](#running-the-code-1)
+    - [Step 1](#step-1-1)
+    - [Step 2](#step-2-1)
+    - [Step 3](#step-3-1)
+    - [Step 4](#step-4-1)
+    - [Expected Outputs](#expected-outputs-1)
+
 # What is in this repository
+---
 
 This is a toy repo where I create equivalent models of my thesis project. I test the files here with models that run a lot faster and are much simpler than my dodecamer one. 
 
@@ -6,29 +31,102 @@ There might be some files that are saved as tests outside of the main ones, as I
 
 The important files to run the simulation are:
 
-## Parameter files:
-- [`mcell_params.py`](mcell_params.py): where variable mcell parameters are stored, and can be changed.
-- [`test_ABC.bngl`](test_ABC.bngl): where model is created and described using BNGL. 
+## BioNetGen and MCell model files:
+- [`mcell_params.py`](mcell_params.py): is the script where the PATH to mcell is defined, where the mcell model is set up, and where parameters are loaded.
+- [`test_ABC.bngl`](test_ABC.bngl): where the model reactions are created and described using BNGL. 
 
 ## Run-the-model files:
+- [`run_model.py`](run_model.py): script that runs the model.
 - [`prepare_run_files.py`](prepare_run_files.py): script that prepares files to be copied, ran, and saved in a timestamped folder.
-- [`run_python_files.py`](run_python_files.py): script executor that automates the execution of the other Python scripts.
 
 ## Output files
-- `data_output/`: contains timestamped folders that are created with scripts mentioned above. Each timestamped folder contains the outputs from running the python scripts.
+- `data_output/`: contains timestamped folders that are created with scripts mentioned above. Each timestamped folder contains the outputs from running the python scripts, which should include a record of the parameters used (in a .csv file), the mcell_params.py file used, and the .bngl file used for that specific run.
+- [`extracted_statsparams.csv`](extracted_statsparams.csv): this file is created during a sensitivity analysis run to store the required parameters and statistics. 
 
-# How to use files in this repo
+## Parameter Sensitivity Analysis files:
+In order to perform sensitivity analysis on the parameters used for this model, the files required are:
+- [`sensitivity_run.py`](sensitivity_run.py): runs the model iteratively overriding specified parameters (for example, 'kon').
+- [`sensitivity_store_analysis.py`](sensitivity_store_analysis.py): extracts required statistics from output data and stores it in a specified [`extracted_statsparams.csv`](extracted_statsparams.csv) file. This script also plots the stat vs parameter in a scatter plot.
 
+# Initial Setup Requirements
+---
+
+## 1. Install MCell/CellBlender v4.0.6 bundle with Blender 2.93
+To run the model files, you will need MCell. The CellBlender bundle containing MCell4 is available for download for different operating systems at the MCell.org website: https://mcell.org/download.html
+
+As of 20230428 I used MCell/CellBlender v4.0.6 bundle with Blender 2.93, on Windows 10 to run this code.
+
+As of 20230501 MCell MacOS Download isn't compatible with "Apple Silicone" devices; it looks like MCell is incompatible with the latest Mac hardware, which uses Arm chips.
+
+I use VS Code as my IDE (Integrated development environment), but you can use whichever IDE you prefer. 
+
+-  To save time and computational power, I run MCell4 outside of Blender.
+
+-  To use MCell4 outside of Blender with Python 3.9, additional installation steps are required as described below:
+
+## 2. Setting System Variable MCELL_PATH and adding Python 3.9 to PATH
+
+### 2.1. Depending on your OS:
+
+In order to set the System Variable MCELL_PATH, depeding on your Operating System, please follow the instructions here: https://mcell.org/mcell4_documentation/installation.html#setting-system-variables
+
+### 2.2. Why do you need to do this:
+As per the mcell documentation, MCell4 Python models use the system variable MCELL_PATH to locate the MCell4 library. It is also useful as a shortcut to the location of utility scripts contained in the CellBlender bundle.
+
+MCell4 also requires Python 3.9. You can either use you own installation or set the system variable PATH so that the Python included in the CellBlender bundle is found.
+
+The models generated by CellBlender expect a system variable MCELL_PATH to be defined and use it to add this path (appended with ‘lib’) to the Python’s search paths like this: 
+
+This is specified in the python files that need to access mcell when running; in this case it's in [`mcell_params.py`](mcell_params.py).
+
+```python
+MCELL_PATH = os.environ.get('MCELL_PATH', '')
+sys.path.append(os.path.join(MCELL_PATH, 'lib'))
+
+import mcell as m
+```
+
+## 3. Set up a python environment
+In order to make sure we are both working with the same versions of python and dependencies required to run the python script in this repo, it will be useful to create an environment.
+
+With a virtual environment, it’s possible to retain all the information in our projects like the dependencies, so anyone else can duplicate the same environment we’re working with.
+
+### 3.1. If you have conda (the environment management system I use): 
+
+You can use the [environment.yml](./environment.yml) file in this repo, and create an environment with the following command:
+
+```
+conda env create --file environment.yml
+```
+
+This will create an environment called *'camkii-project-env'*. You will then have to activate the environment and run the files there. 
+
+PS. I have found [these carpentries](https://carpentries-incubator.github.io/introduction-to-conda-for-data-scientists/) quite helpful with queries regarding conda environments, if you need some guidance here. 
+
+### 3.2. If you use a different environment manager:
+
+You will likely need to use the [requirements.txt](./requirements.txt) file instead. 
+
+The commands to create and activate an environment using virtualenv, pipenv, venv, pyenv, etc will be different depending on which one you use. As an example, if you were using [venv](https://docs.python.org/3/library/venv.html), then you would need to do something like this:
+
+```virtualenv my-env ``` to create your new environment (called 'my-env' here)
+
+```source my-env/bin/activate``` to enter the virtual environment
+
+```pip install -r requirements.txt``` to install the requirements in the current environment
+
+# Running the code (as a one-off)
+---
 ## Step 1
 Have a look at the [`test_ABC.bngl`](test_ABC.bngl) file, are you happy with the parameters being used? 
 
-Would you like to change something? You can make changes in this file, which will then be accessed via [`prepare_run_files.py`](prepare_run_files.py) to load its parameters and run them through mcell. More information on how this works can be found in this documentation [Loading a BNGL File](https://mcell.org/mcell4_documentation/bngl.html)
+Would you like to change something? You can make changes in this file, which will then be accessed via [`run_model.py`](run_model.py) to load its parameters and run them through mcell. More information on how this works can be found in this documentation [Loading a BNGL File](https://mcell.org/mcell4_documentation/bngl.html)
 
 ## Step 2
-Once you are happy with parameters set in the .bngl file, go to the [`mcell_params.py`](mcell_params.py) file. You can change parameters in here too, if necessary. These are also accessed via [`prepare_run_files.py`](prepare_run_files.py).
+Once you are happy with parameters set in the .bngl file, go to the [`mcell_params.py`](mcell_params.py) file. You can change parameters in here too, like geometry of the cell used, if necessary. These are also accessed via [`run_model.py`](run_model.py) to run the model.
 
 ## Step 3
-After making sure parameters are all set up, the [`prepare_run_files.py`](prepare_run_files.py) file prepares a timestamped folder where a copy of the used files above are saved. It also saves visualisation data and a parameters.csv file that contains parameters extracted from the .bngl file used. 
+After making sure parameters are all set up, the [`prepare_run_files.py`](prepare_run_files.py) file prepares a timestamped folder where a copy of the used files above are saved. It also has the option to save visualisation data and a parameters.csv file that contains parameters extracted from the .bngl file used. 
 
 You do not need to do anything here, but it is useful to have a look at what this file looks like to understand what is happening when the ode is being run. 
 
@@ -36,7 +134,130 @@ You do not need to do anything here, but it is useful to have a look at what thi
 Run the following in your command line:
 
 ```python
-python run_python_files.py
+python run_model.py
 ```
 
-This works python magic to action all the instructions given in the other python scripts.
+## Expected Outputs
+In your terminal, you should get a message similar to the one below, with different time stamped folders, and details.
+
+```
+Import of MCell was successful
+New run, files will be saved in data_output\run_2024-12-03_11-05-36_seed_2.
+Initializing 27000 waypoints... 
+Partition contains 30^3 subpartitions, subpartition size is 0.05 microns.
+Copyright (C) 2006-2021 by
+  The National Center for Multiscale Modeling of Biological Systems,
+  The Salk Institute for Biological Studies, and
+  Pittsburgh Supercomputing Center, Carnegie Mellon University,
+
+**********************************************************************
+MCell development is supported by the NIGMS-funded (P41GM103712)
+National Center for Multiscale Modeling of Biological Systems (MMBioS).
+Please acknowledge MCell in your publications.
+**********************************************************************
+
+Iterations: 0 of 100
+Released 100 A@CP from "Release of A@CP at CP" at iteration 0.
+Released 150 B@CP from "Release of B@CP at CP" at iteration 0.
+Iterations: 10 of 100 (22.4941 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 20 of 100 (30.2137 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 30 of 100 (20.9467 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 40 of 100 (19.6157 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 50 of 100 (20.8508 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 60 of 100 (14.7999 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 70 of 100 (19.678 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 80 of 100 (24.2053 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 90 of 100 (26.7291 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 100 of 100 (37.1921 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iteration 100, simulation finished successfully
+Total number of ray-subvolume intersection tests (number of ray_trace calls): 572174
+Total number of ray-polygon intersection tests: 5442556
+Total number of ray-polygon intersections: 1446978
+Total number of mol reflections from a wall: 556787
+Total number of vol mol vol mol collisions: 251
+Total number of molecule moves between walls: 0
+Total number of usages of waypoints for counted volumes: 0
+Total number of counted volume recomputations: 350
+Total number of diffuse 3d calls: 15387
+Average diffusion jump was: 0.9968 timesteps  (15337.8/15387)
+Simulation CPU time = 3.9375 (user) and 0.015625 (system)
+Simulation CPU time without iteration 0 = 3.84375 (user) and 0.015625 (system)
+
+```
+You should get a timestamped folder with files in it, as described in "[Output files](#output-files)" above.
+
+# Running the code (for sensitivity analysis)
+
+## Step 1:
+
+Check and modify the parameter values you'd like to iteratively run through in [`sensitivity_run.py`](sensitivity_run.py). 
+
+## Step2: 
+
+To run the model iteratively overriding specified parameters (for example, 'kon'), copy and paste the following in your command line:
+
+```python
+python sensitivity_run.py 
+```
+
+## Step 3:
+
+To extract required statistics from output data and store it in a specified extracts required statistics from output data and stores it in a specified, run the following in your command line:
+
+```python
+python sensitivity_store_analysis.py
+```
+This script also plots the stat vs parameter in a scatter plot.
+
+## Expected outputs:
+
+After running [`sensitivity_run.py`](sensitivity_run.py), you should get a message for each iteration run, something like this in your command line:
+
+```
+Run completed for kon = 0.5
+Starting run for kon = 1
+New run, files will be saved in data_output\run_2025-01-23_16-17-28_seed_2.
+
+Initializing 27000 waypoints... 
+Partition contains 30^3 subpartitions, subpartition size is 0.05 microns.
+Copyright (C) 2006-2021 by
+  The National Center for Multiscale Modeling of Biological Systems,
+  The Salk Institute for Biological Studies, and
+  Pittsburgh Supercomputing Center, Carnegie Mellon University,
+
+**********************************************************************
+MCell development is supported by the NIGMS-funded (P41GM103712)
+National Center for Multiscale Modeling of Biological Systems (MMBioS).
+Please acknowledge MCell in your publications.
+**********************************************************************
+
+Iterations: 0 of 100
+Released 100 A@CP from "Release of A@CP at CP" at iteration 0.
+Released 150 B@CP from "Release of B@CP at CP" at iteration 0.
+Iterations: 10 of 100 (8.94984 iter/sec) [active/total species 5/6, rxn classes 1, active/total reactant classes 2/2]
+Iterations: 20 of 100 (7.36762 iter/sec) [active/total species 5/6, rxn classes 1, active/total reactant classes 2/2]
+Iterations: 30 of 100 (11.4676 iter/sec) [active/total species 5/6, rxn classes 1, active/total reactant classes 2/2]
+## Parameter Sensitivity Analysis files:
+In order to perform sensitivity analysis on the parameters used for this model, the files required are:
+- [`sensitivity_run.py`](sensitivity_run.py): runs the model iteratively overriding specified parameters (for example, 'kon').
+- [`sensitivity_store_analysis.py`](sensitivity_store_analysis.py): extracts required statistics from output data and stores it in a specified [`extracted_statsparams.csv`](extracted_statsparams.csv) file. This script also plots the stat vs parameter in a scatter plot.
+
+...
+```
+As for the [`sensitivity_store_analysis.py`](sensitivity_store_analysis.py) output, you should get a [`extracted_statsparams.csv`](extracted_statsparams.csv) file, which is created during a sensitivity analysis run to store the required parameters and statistics. 
+
+With the extracted parameter an statistic as columns:
+
+```
+kon,statistic
+88900000.0,100.0
+100000000.0,100.0
+100000.0,6.0
+200000.0,9.0
+300000.0,17.0
+400000.0,12.0
+500000.0,11.0
+600000.0,26.0
+700000.0,38.0
+...
+```
