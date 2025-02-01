@@ -1,4 +1,3 @@
-
 #!/bin/sh
 # Grid Engine options (lines prefixed with #$)
 #$ -cwd
@@ -21,7 +20,8 @@ export CELLBLENDER_BASE_PATH=/exports/cmvm/eddie/sbms/groups/stefanlab/Blender-2
 export MCELL_PATH=$CELLBLENDER_BASE_PATH/scripts/addons/cellblender/extensions/mcell/
 export PATH=$PATH:$CELLBLENDER_BASE_PATH/python/bin/
 
-echo "start run"
+echo "start sensitivity run"
 # Run the program
 python run_python_files.py
-echo "finish run"
+echo "finish sensitivity run"
+
