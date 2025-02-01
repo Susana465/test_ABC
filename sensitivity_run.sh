@@ -22,6 +22,6 @@ export PATH=$PATH:$CELLBLENDER_BASE_PATH/python/bin/
 
 echo "start sensitivity run"
 # Run the program
-python run_python_files.py
+python sensitivity_run.py
 echo "finish sensitivity run"
 

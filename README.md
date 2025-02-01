@@ -261,3 +261,7 @@ kon,statistic
 700000.0,38.0
 ...
 ```
+
+# Running the code in a supercomputer with an .sh file
+
+Look at instructions on eddie to submit a job. Then run the shell script [`run_model.sh`](run_model.sh) for one model run. 
