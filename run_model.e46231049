@@ -1,0 +1,13 @@
+WARNING: If you use conda to create environments, your home directory may fill up. Please see our documentation at 
+ https://www.wiki.ed.ac.uk/display/ResearchServices/Anaconda for advice.
+
+EnvironmentNameNotFound: Could not find conda environment: camkii-project-env
+You can list all discoverable environments with `conda info --envs`.
+
+
+Traceback (most recent call last):
+  File "/exports/cmvm/eddie/sbms/groups/stefanlab/Susana/test_ABC/prepare_run_files.py", line 11, in <module>
+    from mcell_params import set_up_model
+  File "/exports/cmvm/eddie/sbms/groups/stefanlab/Susana/test_ABC/mcell_params.py", line 8, in <module>
+    import mcell as m
+ImportError: Python version mismatch: module was compiled for version 3.9, while the interpreter is running version 3.11.

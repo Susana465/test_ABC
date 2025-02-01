@@ -1,0 +1,104 @@
+start run
+Initializing 27000 waypoints... 
+Partition contains 30^3 subpartitions, subpartition size is 0.05 microns.
+Copyright (C) 2006-2021 by
+  The National Center for Multiscale Modeling of Biological Systems,
+  The Salk Institute for Biological Studies, and
+  Pittsburgh Supercomputing Center, Carnegie Mellon University,
+
+**********************************************************************
+MCell development is supported by the NIGMS-funded (P41GM103712)
+National Center for Multiscale Modeling of Biological Systems (MMBioS).
+Please acknowledge MCell in your publications.
+**********************************************************************
+
+Generated file data_layout.json for plotting in CellBlender.
+Iterations: 0 of 700
+Released 1000 A@CP from "Release of A@CP at CP" at iteration 0.
+Released 1500 B@CP from "Release of B@CP at CP" at iteration 0.
+Iterations: 10 of 700 (55.3992 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 20 of 700 (68.45 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 30 of 700 (70.814 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 40 of 700 (73.0471 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 50 of 700 (76.4076 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 60 of 700 (77.6132 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 70 of 700 (81.6813 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 80 of 700 (83.8631 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 90 of 700 (85.6839 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 100 of 700 (88.1974 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 110 of 700 (87.8735 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 120 of 700 (93.0215 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 130 of 700 (96.485 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 140 of 700 (98.5736 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 150 of 700 (100.462 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 160 of 700 (105.088 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 170 of 700 (107.611 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 180 of 700 (110.919 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 190 of 700 (111.698 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 200 of 700 (113.701 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 210 of 700 (111.693 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 220 of 700 (117.826 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 230 of 700 (120.909 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 240 of 700 (124.594 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 250 of 700 (127.91 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 260 of 700 (130.518 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 270 of 700 (131.898 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 280 of 700 (133.593 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 290 of 700 (134.199 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 300 of 700 (137.114 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 310 of 700 (134.651 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 320 of 700 (142.12 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 330 of 700 (143.48 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 340 of 700 (145.99 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 350 of 700 (148.892 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 360 of 700 (151.274 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 370 of 700 (154.82 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 380 of 700 (158.438 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 390 of 700 (158.539 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 400 of 700 (157.141 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 410 of 700 (139.092 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 420 of 700 (163.535 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 430 of 700 (167.687 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 440 of 700 (168.211 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 450 of 700 (170.861 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 460 of 700 (169.895 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 470 of 700 (172.509 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 480 of 700 (171.333 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 490 of 700 (169.938 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 500 of 700 (172.467 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 510 of 700 (165.008 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 520 of 700 (177.528 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 530 of 700 (176.258 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 540 of 700 (180.554 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 550 of 700 (182.239 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 560 of 700 (182.355 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 570 of 700 (182.525 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 580 of 700 (183.52 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 590 of 700 (185.715 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 600 of 700 (183.661 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 610 of 700 (173.467 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 620 of 700 (189.104 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 630 of 700 (190.814 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 640 of 700 (187.368 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 650 of 700 (193.72 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 660 of 700 (193.412 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 670 of 700 (193.233 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 680 of 700 (195.844 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 690 of 700 (193.705 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Iterations: 700 of 700 (193.949 iter/sec) [active/total species 6/9, rxn classes 2, active/total reactant classes 3/3]
+Import of MCell was sucessful
+Files will be saved in data_output/run_2024-09-16_14-19-11_seed_2.
+Iteration 700, simulation finished successfully
+Total number of ray-subvolume intersection tests (number of ray_trace calls): 2766573
+Total number of ray-polygon intersection tests: 15226593
+Total number of ray-polygon intersections: 3714963
+Total number of mol reflections from a wall: 1479642
+Total number of vol mol vol mol collisions: 75213
+Total number of molecule moves between walls: 0
+Total number of usages of waypoints for counted volumes: 0
+Total number of counted volume recomputations: 3395
+Total number of diffuse 3d calls: 1286931
+Average diffusion jump was: 0.999658 timesteps  (1.28649e+06/1286931)
+Simulation CPU time = 5.43452 (user) and 0 (system)
+Simulation CPU time without iteration 0 = 5.3999 (user) and 0 (system)
+finish run
