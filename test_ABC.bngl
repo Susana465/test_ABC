@@ -4,7 +4,7 @@ begin parameters
   A_i 100
   B_i 150
 
-  kon 1e8/NA_um3
+  kon222 1e8/NA_um3
   koff 1e-2
 
   ITERATIONS 1e2
@@ -47,7 +47,7 @@ end observables
 
 
 begin reaction rules
-    A() + B() <-> C() kon, koff
+    A() + B() <-> C() kon222, koff
 end reaction rules
 
 end model

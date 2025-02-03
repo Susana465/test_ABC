@@ -1,10 +1,10 @@
-import os
-
 from run_model import run_model
 
 # different 'kon' values to run through
 kon_values = [2e1]
 koff_values = [] 
+
+# Note that if parameter_value does not match, this code currently will not throw an error and will just run with the preset value stated in the .bngl file. 
 
 def parameter_sweep(values, parameter_name):
     """
