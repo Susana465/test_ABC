@@ -3,12 +3,7 @@ import os
 from run_model import run_model
 
 # different 'kon' values to run through
-kon_values = [
-    0.1, 0.5, 1, 5, 10,  # Filling low range gaps
-    1e5, 1.5e5, 2e5, 2.5e5, 3e5, 4e5, 5e5, 6e5, 7.5e5, 1e6,  # Original range
-    2e6, 3e6, 5e6, 7.5e6,  # Filling intermediate range
-    2e8, 5e8, 7.5e8  # Filling high range
-]
+kon_values = [2e1]
 koff_values = [] 
 
 def parameter_sweep(values, parameter_name):
