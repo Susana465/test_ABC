@@ -46,7 +46,7 @@ def run_model(parameter_overrides=None, bngl_file="test_ABC.bngl"):
 
     # Specifies periodicity of visualization output
     for count in model.counts:
-        count.every_n_timesteps = 50
+        count.every_n_timesteps = 1
 
     # Process the parameters and save them to CSV
     ITERATIONS, df = process_parameters(bngl_file, run_folder, timestamp, parameter_overrides)

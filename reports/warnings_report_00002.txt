@@ -1,0 +1,11 @@
+Warning: total probability of reaction is > 1 (367.904)
+rxn class for reactants: 
+    B@CP (4) + A@CP (3)
+  pathways were not initialized
+0: products based on rule A + B -> C 1e+11 (id: 0)
+    C (5) 
+cum_probs: 367.904, max_fixed_p: 367.904
+Warning: Some reactions were missed because total reaction probability exceeded 1.
+  A + B  --  99.715% of reactions missed.
+Warning: There was a bimolecular reaction with probability p > 1.0. This means that some reactions were missed. See report file reports\warnings_report_00002.txt for more details. A shorter time step may be needed.
+Additional details may be found in reports\rxn_report_00002.txt, if it does not exist, it can be enabled by setting 'rxn_and_species_report' to true.
