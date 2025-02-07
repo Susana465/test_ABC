@@ -3,7 +3,7 @@ import itertools # is a module in Python that provides a set of fast, memory-eff
 
 import numpy as np
 
-factors = np.array([0.001, 0.01, 0.1, 1, 10, 100, 1000])
+factors = np.array([0.01, 0.1, 1, 10, 100])
 
 # different 'kon' values to run through
 kon_values = 1e8*factors
@@ -14,14 +14,8 @@ koff_values = 1e-2*factors
 # kon = koff/Kd
 # koff= Kd x kon
 
-# # Note that if parameter_value does not match, this code currently will not throw an error and will just run with the preset value stated in the .bngl file. 
-# # Check the .csv of values to see which 'kon' was used
-# def parameter_sweep(constant, param_values):
-#     # Create a list of parameter names (keys from the dictionary)
-#     param_names = list(parameters_dict.keys())
-
-#     for value in param_values:
-        
+# Note that if parameter_value does not match, this code currently will not throw an error and will just run with the preset value stated in the .bngl file. 
+# Check the .csv of values to see which 'kon' was used
 
 def parameter_sweep(parameters_dict):
     """
