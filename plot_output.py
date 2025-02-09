@@ -23,7 +23,7 @@ def plot_target_file(target_file):
         data = np.loadtxt(fname=target_filepath)
         data_new = np.delete(data, 0, 1)
 
-        plt.xlabel("Iterations")
+        plt.xlabel("Time(s)")
         plt.ylabel("Molecule count")
         plt.title("Molecule counts through time")
 

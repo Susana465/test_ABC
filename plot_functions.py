@@ -1,5 +1,41 @@
 import pandas as pd
 import math  # To check for NaN
+import matplotlib.pyplot as plt
+
+def plot_parameter_vs_statistic(csv_file, param_column):
+    """
+    Plots the specified parameter against the statistic and displays the plot.
+
+    Arguments:
+        csv_file (str): The CSV file path that contains the data.
+        param_column (str): The name of the parameter column to plot (e.g., 'kd', 'koff', 'kon').
+
+    """
+    # Load the CSV file
+    df = pd.read_csv(csv_file)
+
+    # Check if the required columns exist
+    if param_column not in df.columns or "statistic" not in df.columns:
+        raise ValueError(f"CSV file must contain '{param_column}' and 'statistic' columns.")
+    
+    # Scatter plot
+    plt.figure(figsize=(8, 6))
+    plt.scatter(df[param_column], df["statistic"], color="blue", alpha=0.7)
+    plt.xlabel(f"{param_column} Value")
+    plt.ylabel("Statistic Value")
+    plt.title(f"{param_column} vs Statistic")
+    
+    # Apply log scale if the values are highly varied
+    plt.xscale("log")
+    plt.yscale("log")
+    
+    plt.grid(True, which="both", linestyle="--", linewidth=0.5)
+    
+    # Show the plot
+    plt.show()
+
+
+# plot_parameter_vs_statistic("kd_stats.csv", "kon222")
 
 def generate_markdown_table(csv_file):
     # Read the CSV file
@@ -30,7 +66,7 @@ def generate_markdown_table(csv_file):
     
     return markdown_table
 
-# Example usage
-csv_file = "extracted_statsparams.csv"  # Replace with your actual CSV file
-markdown_output = generate_markdown_table(csv_file)
-print(markdown_output)
+# # Example usage
+# csv_file = "extracted_statsparams.csv"  # Replace with your actual CSV file
+# markdown_output = generate_markdown_table(csv_file)
+# print(markdown_output)

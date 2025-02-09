@@ -182,20 +182,6 @@ def StatsAndParams_to_csv(base_dir, output_file, extract_statistic_func, molecul
     print(f"Results saved to {output_file}")
     return params_stats
 
-# Define variables:
-base_directory = 'data_output'
-output_csv = 'extracted_statsparams.csv' 
-molecule = 'C'
-stat_type ='last'
-param_names = ['kon222', 'koff']
-
-# Having extract_statistic as an argument means 
-# I can then call a function that extracts a statistic in a different way to the current one
-extract_statistic_func = extract_statistic
-
-# Call and save params and stats in a df:
-params_stats_df = StatsAndParams_to_csv(base_directory, output_csv, extract_statistic_func, molecule, stat_type, param_names)
-
 def calculate_kd(kon, koff):
     return koff / kon
 
@@ -219,29 +205,43 @@ def compute_kd_and_save(df, output_csv, param_names):
     print(f"New CSV saved: {output_csv}")
 
 
+# Define variables:
+base_directory = 'data_output'
+output_csv = 'extracted_statsparams.csv' 
+molecule = 'C'
+stat_type ='last'
+param_names = ['kon222', 'koff']
+
+# Having extract_statistic as an argument means 
+# I can then call a function that extracts a statistic in a different way to the current one
+extract_statistic_func = extract_statistic
+
+# Call and save params and stats in a df:
+params_stats_df = StatsAndParams_to_csv(base_directory, output_csv, extract_statistic_func, molecule, stat_type, param_names)
+
 compute_kd_and_save(params_stats_df, "kd_stats.csv", param_names)
 
 
-def plot_kd_vs_statistic(csv_file):
-    # Load the CSV file
-    df = pd.read_csv(csv_file)
+# def plot_kd_vs_statistic(csv_file):
+#     # Load the CSV file
+#     df = pd.read_csv(csv_file)
 
-    # Check if the required columns exist
-    if "kd" not in df.columns or "statistic" not in df.columns:
-        raise ValueError("CSV file must contain 'kd' and 'statistic' columns.")
+#     # Check if the required columns exist
+#     if "kd" not in df.columns or "statistic" not in df.columns:
+#         raise ValueError("CSV file must contain 'kd' and 'statistic' columns.")
 
-    # Scatter plot
-    plt.figure(figsize=(8, 6))
-    plt.scatter(df["kd"], df["statistic"], color="blue", alpha=0.7)
-    plt.xlabel("Kd (koff / kon)")
-    plt.ylabel("Statistic Value")
-    plt.title("Kd vs Statistic")
-    plt.xscale("log")  # Log scale for better visualization
-    plt.grid(True, which="both", linestyle="--", linewidth=0.5)
-    plt.show()
+#     # Scatter plot
+#     plt.figure(figsize=(8, 6))
+#     plt.scatter(df["kd"], df["statistic"], color="blue", alpha=0.7)
+#     plt.xlabel("Kd (koff / kon)")
+#     plt.ylabel("Statistic Value")
+#     plt.title("Kd vs Statistic")
+#     plt.xscale("log")  # Log scale for better visualization
+#     plt.grid(True, which="both", linestyle="--", linewidth=0.5)
+#     plt.show()
 
-# Example usage
-plot_kd_vs_statistic("kd_stats.csv")
+# # Example usage
+# plot_kd_vs_statistic("kd_stats.csv")
 
 # plt.figure(figsize=(8, 5))
 # plt.scatter(params_stats_df[param_name], params_stats_df['statistic'], color='blue', alpha=0.7)
