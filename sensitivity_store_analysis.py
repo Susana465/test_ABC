@@ -196,6 +196,53 @@ extract_statistic_func = extract_statistic
 # Call and save params and stats in a df:
 params_stats_df = StatsAndParams_to_csv(base_directory, output_csv, extract_statistic_func, molecule, stat_type, param_names)
 
+def calculate_kd(kon, koff):
+    return koff / kon
+
+def compute_kd_and_save(df, output_csv, param_names):
+    if not isinstance(param_names, (list, tuple)):  # Ensure param_names is a list or tuple
+        raise TypeError("param_names must be a list or tuple of column names.")
+
+    if len(param_names) < 2:
+        raise ValueError("param_names must contain at least two elements for kon and koff.")
+    
+    kon_col, koff_col = param_names[:2]  # Get the first two elements
+
+    # Filter out rows where either kon or koff is NaN or missing
+    df_cleaned = df.dropna(subset=[kon_col, koff_col])
+
+    # Calculate 'kd' only for rows without missing values in kon and koff
+    df_cleaned["kd"] = calculate_kd(df_cleaned[kon_col], df_cleaned[koff_col])
+
+    # Save the cleaned DataFrame (with kd column) to CSV
+    df_cleaned.to_csv(output_csv, index=False)
+    print(f"New CSV saved: {output_csv}")
+
+
+compute_kd_and_save(params_stats_df, "kd_stats.csv", param_names)
+
+
+def plot_kd_vs_statistic(csv_file):
+    # Load the CSV file
+    df = pd.read_csv(csv_file)
+
+    # Check if the required columns exist
+    if "kd" not in df.columns or "statistic" not in df.columns:
+        raise ValueError("CSV file must contain 'kd' and 'statistic' columns.")
+
+    # Scatter plot
+    plt.figure(figsize=(8, 6))
+    plt.scatter(df["kd"], df["statistic"], color="blue", alpha=0.7)
+    plt.xlabel("Kd (koff / kon)")
+    plt.ylabel("Statistic Value")
+    plt.title("Kd vs Statistic")
+    plt.xscale("log")  # Log scale for better visualization
+    plt.grid(True, which="both", linestyle="--", linewidth=0.5)
+    plt.show()
+
+# Example usage
+plot_kd_vs_statistic("kd_stats.csv")
+
 # plt.figure(figsize=(8, 5))
 # plt.scatter(params_stats_df[param_name], params_stats_df['statistic'], color='blue', alpha=0.7)
 # plt.xscale('log')  # Logarithmic scale for 'kon'
