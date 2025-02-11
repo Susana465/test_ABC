@@ -2,6 +2,9 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
+
+# This plots all .gdat runs overlapped in one same png
+
 def plot_multiple_gdat(target_folder, selected_variables=None):
     # Loop through all .gdat files in the folder
     for root, dirs, files in os.walk(target_folder):

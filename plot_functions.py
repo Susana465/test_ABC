@@ -30,12 +30,14 @@ def plot_parameter_vs_statistic(csv_file, param_column):
     plt.yscale("log")
     
     plt.grid(True, which="both", linestyle="--", linewidth=0.5)
+
+    plt.savefig(f"{param_column}_vs_statistic.png", dpi=500, bbox_inches="tight")
     
     # Show the plot
     plt.show()
 
 
-# plot_parameter_vs_statistic("kd_stats.csv", "kon222")
+plot_parameter_vs_statistic("kd_stats.csv", "kon222")
 
 def generate_markdown_table(csv_file):
     # Read the CSV file

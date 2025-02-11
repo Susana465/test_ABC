@@ -13,7 +13,7 @@ end parameters
 begin molecule types
 # Here we define the molecules and the possible states and binding sites they can have
 # Molecule A has a binding site (a), and a phosphorylation site which can be unphosphorylated (~0) or phosphorylated (~P):
-    A(a,T286~0~P,c)
+    A(a,T286~0~P)
 # Molecule B has a binding site (b):
     B(b)
 # Molecule C has no binding sites:
@@ -51,7 +51,7 @@ begin observables
 end observables
 
 end model
-simulate({method=>"ssa",t_end=>100,n_steps=>10})
+
 
 
 

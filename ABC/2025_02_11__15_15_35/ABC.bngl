@@ -13,20 +13,20 @@ end parameters
 begin molecule types
 # Here we define the molecules and the possible states and binding sites they can have
 # Molecule A has a binding site (a), and a phosphorylation site which can be unphosphorylated (~0) or phosphorylated (~P):
-    A(a,T286~0~P,c)
+    A(a,T286~0~P)
 # Molecule B has a binding site (b):
     B(b)
 # Molecule C has no binding sites:
-    C(a)
+    C()
 end molecule types
 
 begin species
 # Molecule A starts with binding site a free, and with phosphorylation site unphosphorylated
-    A(a,T286~0,c) A_i 
+    A(a,T286~0) A_i 
 # Molecule B starts with binding site b free
     B(b) B_i
 # Molecule C has no binding sites so it starts as it is
-    C(a) C_i
+    C() C_i
 end species
 
 begin reaction rules
@@ -35,23 +35,21 @@ begin reaction rules
     A(a) + B(b) <-> A(a!1).B(b!1) kon, koff
 # If A is unphosphorylated, it can become phoshorylated by the presence of C
 # Don't need to specify status of binding site 'a' (don't care, don't write):
-    A(T286~0) + C(a) -> A(T286~P) k_P
-
-    A(c,T286~P) + C(a) -> A(c!1,T286~P).C(a!1) k_P
+    A(T286~0) + C() -> A(T286~P) k_P
 
 end reaction rules
 
 begin observables
   Molecules AB_complex A(a!1).B(b!1)
   Molecules A_phosphorylated A(T286~P)
-  Molecules A_B_C A(a!1,c!2).B(b!1).C(a!2)
+  Molecules A_bound A(a!1)
   Molecules A A(a)
   Molecules B B(b)
   Molecules C C()
 end observables
 
 end model
-simulate({method=>"ssa",t_end=>100,n_steps=>10})
+
 
 
 

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import math
 
-# this one just accesses .png_images/
+# this one accesses .png_images/
 
 def plot_image_grid(image_folder, columns=4):
     # Get a list of all PNG files in the folder
@@ -33,6 +33,7 @@ def plot_image_grid(image_folder, columns=4):
         axes[i].axis("off")
 
     plt.tight_layout()
+
     plt.show()
 
 image_folder = "./png_images"  # Change this to your folder path

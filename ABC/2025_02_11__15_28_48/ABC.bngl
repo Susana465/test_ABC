@@ -13,7 +13,7 @@ end parameters
 begin molecule types
 # Here we define the molecules and the possible states and binding sites they can have
 # Molecule A has a binding site (a), and a phosphorylation site which can be unphosphorylated (~0) or phosphorylated (~P):
-    A(a,T286~0~P,c)
+    A(a,T286~0~P)
 # Molecule B has a binding site (b):
     B(b)
 # Molecule C has no binding sites:
@@ -44,7 +44,7 @@ end reaction rules
 begin observables
   Molecules AB_complex A(a!1).B(b!1)
   Molecules A_phosphorylated A(T286~P)
-  Molecules A_B_C A(a!1,c!2).B(b!1).C(a!2)
+  Molecules A_B_C A(a!1,c!2).B(b!1).C(a!3)
   Molecules A A(a)
   Molecules B B(b)
   Molecules C C()

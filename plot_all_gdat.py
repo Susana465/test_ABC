@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # this one goes thru all files
+# avoid doing a full run of script as it will iterate and save a png for each folder, 
+# only run if you want all figures at once
 
 def plot_all_gdat_files(root_dir="."):
     # Function to search for all .gdat files within directories containing "run_"

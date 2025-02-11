@@ -182,6 +182,7 @@ def StatsAndParams_to_csv(base_dir, output_file, extract_statistic_func, molecul
     print(f"Results saved to {output_file}")
     return params_stats
 
+
 def calculate_kd(kon, koff):
     return koff / kon
 
