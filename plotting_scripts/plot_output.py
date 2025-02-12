@@ -15,7 +15,7 @@ def plot_target_file(target_file):
         return None
 
     # Search for the target file within the current directory "."
-    target_filepath = find_target_file(".", target_file)
+    target_filepath = find_target_file("../..", target_file)
 
     if target_filepath is not None:
         print("Using file:", target_filepath)
