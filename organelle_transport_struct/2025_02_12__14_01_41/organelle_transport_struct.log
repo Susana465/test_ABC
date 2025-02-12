@@ -1,0 +1,53 @@
+BioNetGen version 2.8.2
+Reading from file c:\PhD_2023\test_ABC\organelle_transport_struct\2025_02_12__14_01_41\organelle_transport_struct.bngl (level 0)
+Read 21 parameters.
+Read 5 compartments.
+Read 4 molecule types.
+Read 4 species.
+Read 5 observable(s).
+Read 0 functions.
+Read 7 reaction rule(s).
+ACTION: simulate( method=>"cvode" )
+ACTION: generate_network( organelle_transport_struct )
+Iteration   0:     4 species      0 rxns  0.00e+00 CPU s
+Iteration   1:     5 species      1 rxns  0.00e+00 CPU s
+Iteration   2:     6 species      3 rxns  1.60e-02 CPU s
+Iteration   3:     7 species      4 rxns  0.00e+00 CPU s
+Iteration   4:     8 species      5 rxns  0.00e+00 CPU s
+Iteration   5:     9 species      7 rxns  0.00e+00 CPU s
+Iteration   6:    10 species      8 rxns  0.00e+00 CPU s
+Iteration   7:    11 species     10 rxns  0.00e+00 CPU s
+Iteration   8:    11 species     10 rxns  0.00e+00 CPU s
+Cumulative CPU time for each rule
+Rule   1:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   2:     1 reactions 1.60e-02 CPU s 1.60e-02 CPU s/rxn
+Rule   3:     1 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   4:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   5:     1 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   6:     2 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Rule   7:     1 reactions 0.00e+00 CPU s 0.00e+00 CPU s/rxn
+Total   :    10 reactions 1.60e-02 CPU s 1.60e-03 CPU s/rxn
+Wrote network in net format to organelle_transport_struct.net.
+Network simulation using cvode
+WARNING: writeFile(): Overwriting existing file organelle_transport_struct.net.
+Wrote network in net format to organelle_transport_struct.net.
+Running run_network on Susana-laptop
+full command: C:\Python39\lib\site-packages\bionetgen\bng-win\bin\run_network.exe -o organelle_transport_struct -p cvode -a 1e-08 -r 1e-08 --cdat 1 --fdat 0 -g organelle_transport_struct.net organelle_transport_struct.net 1e-05 1000
+[simulation PID is: 21644]
+run_network 3.0
+Read 21 parameters from organelle_transport_struct.net
+Read 11 species from organelle_transport_struct.net
+Read 5 group(s) from organelle_transport_struct.net
+Read 0 function(s) from organelle_transport_struct.net
+Read 10 reaction(s) from organelle_transport_struct.net
+10 reaction(s) have nonzero rate
+Initialization took 0.03 CPU seconds
+Propagating with cvode using dense LU
+Time course of concentrations written to file organelle_transport_struct.cdat.
+Time course of groups written to file organelle_transport_struct.gdat.
+Propagation took 2.34e-01 CPU seconds
+Program times:  0.27 CPU s 1.00 clock s
+Updating species concentrations from organelle_transport_struct.cdat
+CPU TIME: simulate 0.05 s.
+Finished processing file c:\PhD_2023\test_ABC\organelle_transport_struct\2025_02_12__14_01_41\organelle_transport_struct.bngl.
+CPU TIME: total 0.06 s.

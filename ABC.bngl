@@ -1,4 +1,10 @@
 begin model
+
+begin compartments
+    CP 3 1  # 3D compartment with volume = 1
+    PM 2 CP 1  # 2D surface compartment on CP with area = 1
+end compartments
+
 begin parameters
 # Define initial number of molecules released
   A_i 150
@@ -22,11 +28,11 @@ end molecule types
 
 begin species
 # Molecule A starts with binding site a free, and with phosphorylation site unphosphorylated
-    A(a,T286~0,c) A_i 
+    @CP:A(a,T286~0,c) A_i 
 # Molecule B starts with binding site b free
-    B(b) B_i
+    @PM:B(b) B_i 
 # Molecule C has no binding sites so it starts as it is
-    C(a) C_i
+    @CP:C(a) C_i 
 end species
 
 begin reaction rules
