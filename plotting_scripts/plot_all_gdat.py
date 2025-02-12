@@ -65,5 +65,5 @@ def plot_all_gdat_files(root_dir="."):
         print(f"No .gdat files found in any directory containing 'run_'")
 
 if __name__ == "__main__":
-    root_directory = "."  # Start searching from the current directory or specify another
+    root_directory = "data_output"  # Start searching from the current directory or specify another
     plot_all_gdat_files(root_directory)

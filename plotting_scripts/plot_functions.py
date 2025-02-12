@@ -1,6 +1,7 @@
 import pandas as pd
 import math  # To check for NaN
 import matplotlib.pyplot as plt
+import os
 
 def plot_parameter_vs_statistic(csv_file, param_column):
     """
@@ -31,13 +32,31 @@ def plot_parameter_vs_statistic(csv_file, param_column):
     
     plt.grid(True, which="both", linestyle="--", linewidth=0.5)
 
-    plt.savefig(f"{param_column}_vs_statistic.png", dpi=500, bbox_inches="tight")
+    output_directory = "figures" 
+    if not os.path.exists(output_directory):
+        os.makedirs(output_directory)
+
+    base_filename = f"{param_column}_vs_statistic.png"
+    output_file_path = os.path.join(output_directory, base_filename)
+
+    # Check if the file already exists and modify the filename if necessary
+    if os.path.exists(output_file_path):
+        # If the file exists, append '_copy' to the filename
+        name, ext = os.path.splitext(base_filename)
+        counter = 1
+        while os.path.exists(output_file_path):
+            output_file_path = os.path.join(output_directory, f"{name}_copy{counter}{ext}")
+            counter += 1
+
+    plt.savefig(output_file_path, dpi=500, bbox_inches="tight")
     
     # Show the plot
     plt.show()
 
+    print(f"Plot saved to: {output_file_path}")
 
-plot_parameter_vs_statistic("kd_stats.csv", "kon222")
+
+plot_parameter_vs_statistic("saved_csv_files/kd_stats.csv", "kon222")
 
 def generate_markdown_table(csv_file):
     # Read the CSV file
