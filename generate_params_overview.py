@@ -3,8 +3,8 @@ import pandas as pd
 
 # Define the base directory and the output CSV path
 # The 'r' before the string makes it a raw string, preventing escape sequences (e.g., \n or \t) from being processed
-base_dir = r'D:/CaMKII_hexa_bgnl_to_mcellcop2/data_output_selected/'
-output_csv = r'D:/CaMKII_hexa_bgnl_to_mcellcop2/data_output_selected/Parameters_Overview.csv'
+base_dir = r'D:/CaMKII_hexa_bgnl_to_mcellcop2/data_output/yesNMDAR/'
+output_csv = r'D:/CaMKII_hexa_bgnl_to_mcellcop2/data_output/yesNMDAR/Parameters_Overview.csv'
 
 # Initialize a list to store the data from all runs
 data = []
@@ -37,24 +37,17 @@ for run_folder in os.listdir(base_dir):
             # Debug: Show first few rows to verify contents
             print(f"First few rows of parameters CSV:\n{param_df.head()}")
 
-            # Extract values for 'kon_camkii_open' and 'koff_camkii_close'
-            kon_value = param_df[param_df['Parameter'] == 'kon_camkii_open']['Value']
-            koff_value = param_df[param_df['Parameter'] == 'koff_camkii_close']['Value']
+            # Extract parameter-value pairs and store them in a dictionary
+            param_dict = dict(zip(param_df['Parameter'], param_df['Value']))
+            print(f"Extracted parameters for run {run_id}: {param_dict}")  # Debug print
 
-            print(f"Extracted kon_camkii_open: {kon_value}, koff_camkii_close: {koff_value}")  # Debug print
-
-            # Check if the parameters exist in the DataFrame and get the first value
-            kon_value = kon_value.iloc[0] if not kon_value.empty else None
-            koff_value = koff_value.iloc[0] if not koff_value.empty else None
-
-            # Compile the data for this run
+            # Compile the data for this run, including the run metadata
             run_data = {
                 'Run ID': run_id,
                 'Date': date,
-                'Seed': seed,
-                'kon_camkii_open': kon_value,
-                'koff_camkii_close': koff_value
+                'Seed': seed
             }
+            run_data.update(param_dict)  # Add all parameters as columns
 
             # Add this run's data to the list
             data.append(run_data)
