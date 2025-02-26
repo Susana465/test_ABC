@@ -1,5 +1,8 @@
 import os
 import pandas as pd
+import glob
+from sensitivity_store_analysis import read_gdat
+from sensitivity_store_analysis import extract_statistic
 
 # Define the base directory and the output CSV path
 # The 'r' before the string makes it a raw string, preventing escape sequences (e.g., \n or \t) from being processed
@@ -8,6 +11,7 @@ output_csv = r'D:/CaMKII_hexa_bgnl_to_mcellcop2/data_output/yesNMDAR/Parameters_
 
 # Initialize a list to store the data from all runs
 data = []
+molecule = "NMDAR_CaMKII_complex"
 
 # Iterate through each run directory
 for run_folder in os.listdir(base_dir):
@@ -40,6 +44,21 @@ for run_folder in os.listdir(base_dir):
             # Extract parameter-value pairs and store them in a dictionary
             param_dict = dict(zip(param_df['Parameter'], param_df['Value']))
             print(f"Extracted parameters for run {run_id}: {param_dict}")  # Debug print
+
+            # Attempt to find the .gdat file in the current run folder
+            gdat_files = glob.glob(os.path.join(run_path, "*.gdat"))
+            if gdat_files:
+                gdat_file_path = gdat_files[0]  # Assuming there's only one .gdat file per run
+                print(f"Found .gdat file: {gdat_file_path}")
+                
+                # Read the .gdat file
+                gdat_data = read_gdat(gdat_file_path)
+
+                stat = extract_statistic(gdat_data, molecule, stat_type="last")  # Change stat_type as needed
+                print(f"Extracted statistic for {molecule}: {stat}")
+                
+                # Add the statistic to the parameter dictionary
+                param_dict["Stat_" + molecule] = stat
 
             # Compile the data for this run, including the run metadata
             run_data = {
