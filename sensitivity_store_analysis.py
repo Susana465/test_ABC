@@ -102,6 +102,15 @@ def StatsAndParams_to_csv(base_dir, output_file, extract_statistic_func, molecul
         try:
             print(f"Accessing folder: {run_folder}")
 
+            # Extract metadata from folder name
+            run_id = os.path.basename(run_folder)
+            try:
+                date, seed = run_id.split('_')[1], run_id.split('_')[-1]
+                print(f"Processing run: {run_id}, Date: {date}, Seed: {seed}")
+            except IndexError:
+                print(f"Warning: Unable to extract date and seed from run ID {run_id}")
+                date, seed = None, None
+
             # Locate output data files
             data_files = glob.glob(os.path.join(run_folder, "*_out.gdat"))
             if len(data_files) > 1:
@@ -125,9 +134,12 @@ def StatsAndParams_to_csv(base_dir, output_file, extract_statistic_func, molecul
             extracted_params = extract_parameters(params, param_names)
             print(f"Successfully extracted_params: {extracted_params}")
 
-            # Add the extracted statistic to the dictionary of extracted parameters
-            extracted_params['statistic'] = statistic  # Add statistic to dictionary
-            
+            # Add the extracted statistic and metadata to the dictionary of extracted parameters
+            extracted_params['statistic'] = statistic
+            extracted_params['Run ID'] = run_id
+            extracted_params['Date'] = date
+            extracted_params['Seed'] = seed
+
             param_stats_list.append(extracted_params)
 
             # Print the extracted parameters as a DataFrame (for debugging purposes).
@@ -172,7 +184,7 @@ def compute_kd_and_save(df, output_csv, param_names):
 
 # Define variables:
 base_directory = 'data_output'
-output_csv = 'extracted_statsparams.csv' 
+output_csv = 'extracted_statsparams_2.csv' 
 molecule = 'C'
 stat_type ='last'
 param_names = ['kon222', 'koff']
@@ -184,7 +196,9 @@ extract_statistic_func = extract_statistic
 # Call and save params and stats in a df:
 params_stats_df = StatsAndParams_to_csv(base_directory, output_csv, extract_statistic_func, molecule, stat_type, param_names)
 
-compute_kd_and_save(params_stats_df, "kd_stats.csv", param_names)
+#compute_kd_and_save(params_stats_df, "kd_stats.csv", param_names)
+
+#----
 # def plot_kd_vs_statistic(csv_file):
 #     # Load the CSV file
 #     df = pd.read_csv(csv_file)
