@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite it as below."
+title: "test_abc"
+authors:
+  - family-names: "Roman Garcia"
+    given-names: "Susana"
+date-released: 2024-04-08
+version: "0.1.0"
+repository-code: "https://github.com/Susana465/test_ABC"
+abstract: >
+  This is a toy repo where I create equivalent models of my thesis project.
+  I test the files here with models that run a lot faster and are much simpler
+  than my dodecamer one.

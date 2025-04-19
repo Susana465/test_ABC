@@ -17,7 +17,7 @@ end compartments
 begin seed species
     A(b,c)@CP 100
     B(a)@PM 100
-    C(c)@CP 50
+    C(c)@CP 0
 end seed species  
 
 begin observables
@@ -25,12 +25,11 @@ begin observables
     Molecules B B(a)
     Molecules AB B(a)
     Molecules C C(c)
-    Molecules ABC A(b!1,c!2).B(a!1).C(c!2)
 end observables
 
 begin reaction rules
     A(b)@IN + B(a) -> A(b!1).B(a!1) kon222
-    A(b!1,c).B(a!1) + C(c) -> A(b!1,c!2).B(a!1).C(c!2) kon
+    A(b!1).B(a!1) + C(c) -> A(b!1,c!2).B(a!1).C(c!2) kon
     #A(b)@IN + B(a) -> C()@IN kon222
 end reaction rules  
 
